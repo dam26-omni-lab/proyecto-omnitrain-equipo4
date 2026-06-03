@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 
@@ -6,244 +7,435 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>OmniTrain</title>
+    <title>Nexus Dynamics - Training Platform</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="style.css">
+    <!-- BOOTSTRAP ICONS -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- =========================================================
+         SIDEBAR
+    ========================================================= -->
 
-    <nav id="navbar" class="navbar navbar-expand-lg">
+    <aside class="sidebar">
 
-        <div class="container">
+        <div class="sidebar-logo">
 
-            <a class="navbar-brand" href="#">
-                OmniTrain
-            </a>
+            <img src="img/logo.jpeg" alt="Logo">
 
-            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
-                ☰
-            </button>
+            <div>
 
-            <div class="collapse navbar-collapse" id="menu">
-
-                <ul class="navbar-nav ms-auto">
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Inicio</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Capacitaciones</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Progreso</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
-                    </li>
-
-                </ul>
+                <h4>NEXUS</h4>
+                <span>Training Platform</span>
 
             </div>
 
         </div>
 
-    </nav>
+        <!-- MENU -->
 
-    <!-- HERO -->
+        <ul class="sidebar-menu">
 
-    <section id="hero">
+            <li class="active">
+                <a href="#">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    Dashboard
+                </a>
+            </li>
 
-        <div class="container">
+            <li>
+                <a href="#">
+                    <i class="bi bi-display-fill"></i>
+                    Simulador 2D
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bi bi-badge-vr-fill"></i>
+                    Simulador 3D
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bi bi-shield-lock-fill"></i>
+                    Cybersecurity
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    KPIs
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bi bi-patch-question-fill"></i>
+                    Evaluaciones
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bi bi-award-fill"></i>
+                    Certificaciones
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bi bi-gear-fill"></i>
+                    Configuración
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- =========================================================
+         MAIN CONTENT
+    ========================================================= -->
+
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <div class="search-box">
+
+                <i class="bi bi-search"></i>
+
+                <input type="text"
+                    placeholder="Buscar simulaciones, entrenamientos o reportes...">
+
+            </div>
+
+            <div class="topbar-user">
+
+                <div class="xp-box">
+
+                    XP: 4,820
+
+                </div>
+
+                <img src="https://i.pravatar.cc/100"
+                    class="user-avatar">
+
+            </div>
+
+        </div>
+
+        <!-- HERO -->
+
+        <section class="welcome-card">
 
             <div class="row align-items-center">
 
-                <div class="col-lg-6">
+                <div class="col-lg-7">
 
-                    <span class="badge-custom">
-                        Plataforma Corporativa
+                    <span class="welcome-badge">
+
+                        Plataforma Empresarial Inteligente
+
                     </span>
 
                     <h1>
-                        Capacitación Inteligente para Empresas
+
+                        Bienvenido,
+                        Luis Fernando 👋
+
                     </h1>
 
                     <p>
-                        Entrena a tu personal mediante simulaciones,
-                        evaluaciones y experiencias inmersivas diseñadas
-                        para entornos empresariales reales.
+
+                        Continúa tu entrenamiento empresarial inmersivo
+                        mediante simulaciones 2D, laboratorios virtuales 3D,
+                        dashboards y evaluaciones inteligentes.
+
                     </p>
 
-                    <button class="btn btn-primary btn-lg">
-                        Comenzar Ahora
-                    </button>
+                    <!-- PROGRESS -->
+
+                    <div class="progress-section">
+
+                        <div class="progress-header">
+
+                            <span>Progreso General</span>
+                            <strong>78%</strong>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div class="progress-bar"
+                                style="width:78%;"></div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- BUTTONS -->
+
+                    <div class="hero-buttons">
+
+                        <button class="btn btn-primary btn-lg">
+
+                            <i class="bi bi-play-fill"></i>
+                            Continuar Simulación
+
+                        </button>
+
+                        <button class="btn btn-outline-primary btn-lg">
+
+                            Ver Reportes
+
+                        </button>
+
+                    </div>
 
                 </div>
 
-                <div class="col-lg-6 text-center">
+                <!-- RIGHT PANEL -->
 
-                    <img
-                        src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900"
-                        class="img-fluid hero-image"
-                        alt="Capacitación">
+                <div class="col-lg-5">
+
+                    <div class="training-panel">
+
+                        <div class="panel-card">
+
+                            <div class="panel-icon">
+
+                                <i class="bi bi-display-fill"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h5>Simulación 2D</h5>
+                                <p>Resolución de incidentes</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="panel-card">
+
+                            <div class="panel-icon">
+
+                                <i class="bi bi-badge-vr-fill"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h5>Laboratorio 3D</h5>
+                                <p>Infraestructura virtual</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="panel-card">
+
+                            <div class="panel-icon">
+
+                                <i class="bi bi-patch-question-fill"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h5>Evaluación IA</h5>
+                                <p>Exámenes automáticos</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
-    </section>
+        <!-- MODULES -->
 
-    <!-- MODULOS -->
-
-    <section id="modules">
-
-        <div class="container">
-
-            <h2 class="section-title">
-                Áreas de Capacitación
-            </h2>
+        <section class="modules-grid">
 
             <div class="row g-4">
 
-                <div class="col-md-6 col-lg-3">
+                <!-- MODULO -->
+
+                <div class="col-lg-4">
 
                     <div class="module-card">
 
-                        <h4>Ciberseguridad</h4>
+                        <div class="module-top">
+
+                            <div class="module-icon">
+
+                                <i class="bi bi-display-fill"></i>
+
+                            </div>
+
+                            <span class="module-status">
+
+                                ACTIVO
+
+                            </span>
+
+                        </div>
+
+                        <h4>Simulador 2D</h4>
 
                         <p>
-                            Protección y respuesta ante amenazas.
+
+                            Escenarios empresariales interactivos.
+
                         </p>
+
+                        <div class="progress">
+
+                            <div class="progress-bar"
+                                style="width:82%;"></div>
+
+                        </div>
+
+                        <button class="btn btn-primary w-100 mt-4">
+
+                            Ingresar
+
+                        </button>
 
                     </div>
 
                 </div>
 
-                <div class="col-md-6 col-lg-3">
+                <!-- MODULO -->
+
+                <div class="col-lg-4">
+
+                    <div class="module-card featured-module">
+
+                        <div class="module-top">
+
+                            <div class="module-icon">
+
+                                <i class="bi bi-badge-vr-fill"></i>
+
+                            </div>
+
+                            <span class="module-status live">
+
+                                LIVE
+
+                            </span>
+
+                        </div>
+
+                        <h4>Laboratorio 3D</h4>
+
+                        <p>
+
+                            Ambientes inmersivos empresariales.
+
+                        </p>
+
+                        <div class="progress">
+
+                            <div class="progress-bar"
+                                style="width:65%;"></div>
+
+                        </div>
+
+                        <button class="btn btn-primary w-100 mt-4">
+
+                            Abrir Laboratorio
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- MODULO -->
+
+                <div class="col-lg-4">
 
                     <div class="module-card">
 
-                        <h4>Technical VR</h4>
+                        <div class="module-top">
+
+                            <div class="module-icon">
+
+                                <i class="bi bi-patch-question-fill"></i>
+
+                            </div>
+
+                            <span class="module-status">
+
+                                IA
+
+                            </span>
+
+                        </div>
+
+                        <h4>Evaluaciones</h4>
 
                         <p>
-                            Prácticas inmersivas y laboratorios.
+
+                            Cuestionarios inteligentes y reportes automáticos.
+
                         </p>
 
-                    </div>
+                        <div class="progress">
 
-                </div>
+                            <div class="progress-bar"
+                                style="width:91%;"></div>
 
-                <div class="col-md-6 col-lg-3">
+                        </div>
 
-                    <div class="module-card">
+                        <button class="btn btn-primary w-100 mt-4">
 
-                        <h4>Atención al Cliente</h4>
+                            Realizar Evaluación
 
-                        <p>
-                            Simulaciones de interacción empresarial.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-
-                    <div class="module-card">
-
-                        <h4>Analytics</h4>
-
-                        <p>
-                            Métricas y rendimiento profesional.
-                        </p>
+                        </button>
 
                     </div>
 
                 </div>
 
-            </div>
+            </div>0
 
-        </div>
+        </section>
 
-    </section>
+    </main>
 
-    <!-- RESUMEN -->
-
-    <section id="stats">
-
-        <div class="container">
-
-            <div class="row g-4">
-
-                <div class="col-md-4">
-
-                    <div class="stat-card">
-
-                        <h3>87%</h3>
-
-                        <p>Progreso General</p>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <div class="stat-card">
-
-                        <h3>8,450 XP</h3>
-
-                        <p>Experiencia Acumulada</p>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <div class="stat-card">
-
-                        <h3>12</h3>
-
-                        <p>Certificaciones</p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- FOOTER -->
-
-    <footer id="footer">
-
-        <div class="container text-center">
-
-            <p>
-                © 2026 OmniTrain - Plataforma Corporativa de Capacitación
-            </p>
-
-        </div>
-
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JS -->
+    <script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 
 </html>
-</html>
+```
