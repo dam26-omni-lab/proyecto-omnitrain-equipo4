@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 
@@ -7,16 +6,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nexus Dynamics - Training Platform</title>
+    <title>OmniTrain | Laboratorio 3D</title>
 
-    <!-- BOOTSTRAP -->
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
-    <!-- BOOTSTRAP ICONS -->
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- GOOGLE FONT -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
@@ -27,9 +26,7 @@
 
 <body>
 
-    <!-- =========================================================
-         SIDEBAR
-    ========================================================= -->
+    <!-- SIDEBAR -->
 
     <aside class="sidebar">
 
@@ -38,20 +35,16 @@
             <img src="img/logo.jpeg" alt="Logo">
 
             <div>
-
-                <h4>NEXUS</h4>
+                <h4>OMNITRAIN</h4>
                 <span>Training Platform</span>
-
             </div>
 
         </div>
 
-        <!-- MENU -->
-
         <ul class="sidebar-menu">
 
-            <li class="active">
-                <a href="#">
+            <li>
+                <a href="index.html">
                     <i class="bi bi-grid-1x2-fill"></i>
                     Dashboard
                 </a>
@@ -64,7 +57,7 @@
                 </a>
             </li>
 
-            <li>
+            <li class="active">
                 <a href="simulador3d.html">
                     <i class="bi bi-badge-vr-fill"></i>
                     Simulador 3D
@@ -92,27 +85,11 @@
                 </a>
             </li>
 
-            <li>
-                <a href="#">
-                    <i class="bi bi-award-fill"></i>
-                    Certificaciones
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <i class="bi bi-gear-fill"></i>
-                    Configuración
-                </a>
-            </li>
-
         </ul>
 
     </aside>
 
-    <!-- =========================================================
-         MAIN CONTENT
-    ========================================================= -->
+    <!-- MAIN CONTENT -->
 
     <main class="main-content">
 
@@ -120,21 +97,15 @@
 
         <div class="topbar">
 
-            <div class="search-box">
-
-                <i class="bi bi-search"></i>
-
-                <input type="text"
-                    placeholder="Buscar simulaciones, entrenamientos o reportes...">
-
-            </div>
+            <h2>
+                <i class="bi bi-badge-vr-fill"></i>
+                Laboratorio 3D
+            </h2>
 
             <div class="topbar-user">
 
                 <div class="xp-box">
-
                     XP: 4,820
-
                 </div>
 
                 <img src="https://i.pravatar.cc/100"
@@ -150,89 +121,78 @@
 
             <div class="row align-items-center">
 
-                <div class="col-lg-7">
+                <div class="col-lg-8">
 
                     <span class="welcome-badge">
 
-                        Plataforma Empresarial Inteligente
+                        EXPERIENCIA INMERSIVA
 
                     </span>
 
                     <h1>
-
-                        Bienvenido,
-                        Luis Fernando 👋
-
+                        Laboratorio Virtual 3D
                     </h1>
 
                     <p>
 
-                        Continúa tu entrenamiento empresarial inmersivo
-                        mediante simulaciones 2D, laboratorios virtuales 3D,
-                        dashboards y evaluaciones inteligentes.
+                        Accede a entornos empresariales inmersivos donde podrás
+                        interactuar con infraestructura tecnológica, centros de
+                        datos, redes corporativas y escenarios avanzados de
+                        capacitación.
 
                     </p>
-
-                    <!-- PROGRESS -->
 
                     <div class="progress-section">
 
                         <div class="progress-header">
 
-                            <span>Progreso General</span>
-                            <strong>78%</strong>
+                            <span>Laboratorios Completados</span>
+                            <strong>65%</strong>
 
                         </div>
 
                         <div class="progress">
 
                             <div class="progress-bar"
-                                style="width:78%;"></div>
+                                style="width:65%;"></div>
 
                         </div>
 
                     </div>
-
-                    <!-- BUTTONS -->
 
                     <div class="hero-buttons">
 
                         <button class="btn btn-primary btn-lg">
 
                             <i class="bi bi-play-fill"></i>
-                            Continuar Simulación
+                            Abrir Laboratorio
 
                         </button>
 
-                        <button class="btn btn-outline-primary btn-lg">
+                        <a href="index.html"
+                            class="btn btn-outline-primary btn-lg">
 
-                            Ver Reportes
+                            Volver al Dashboard
 
-                        </button>
+                        </a>
 
                     </div>
 
                 </div>
 
-                <!-- RIGHT PANEL -->
-
-                <div class="col-lg-5">
+                <div class="col-lg-4">
 
                     <div class="training-panel">
 
                         <div class="panel-card">
 
                             <div class="panel-icon">
-
-                                <i class="bi bi-display-fill"></i>
-
+                                <i class="bi bi-cpu-fill"></i>
                             </div>
 
                             <div>
-
-                                <h5>Simulación 2D</h5>
-                                <p>Resolución de incidentes</p>
-
+                                <h5>Equipos Virtuales</h5>
+                                <p>48 dispositivos</p>
                             </div>
 
                         </div>
@@ -240,16 +200,12 @@
                         <div class="panel-card">
 
                             <div class="panel-icon">
-
-                                <i class="bi bi-badge-vr-fill"></i>
-
+                                <i class="bi bi-diagram-3-fill"></i>
                             </div>
 
                             <div>
-
-                                <h5>Laboratorio 3D</h5>
-                                <p>Infraestructura virtual</p>
-
+                                <h5>Topologías</h5>
+                                <p>15 escenarios</p>
                             </div>
 
                         </div>
@@ -257,16 +213,12 @@
                         <div class="panel-card">
 
                             <div class="panel-icon">
-
-                                <i class="bi bi-patch-question-fill"></i>
-
+                                <i class="bi bi-trophy-fill"></i>
                             </div>
 
                             <div>
-
-                                <h5>Evaluación IA</h5>
-                                <p>Exámenes automáticos</p>
-
+                                <h5>Ranking Global</h5>
+                                <p>#12 de 240</p>
                             </div>
 
                         </div>
@@ -279,13 +231,11 @@
 
         </section>
 
-        <!-- MODULES -->
+        <!-- LABORATORIOS -->
 
         <section class="modules-grid">
 
             <div class="row g-4">
-
-                <!-- MODULO -->
 
                 <div class="col-lg-4">
 
@@ -294,35 +244,22 @@
                         <div class="module-top">
 
                             <div class="module-icon">
-
-                                <i class="bi bi-display-fill"></i>
-
+                                <i class="bi bi-hdd-network-fill"></i>
                             </div>
 
                             <span class="module-status">
-
-                                ACTIVO
-
+                                REDES
                             </span>
 
                         </div>
 
-                        <h4>Simulador 2D</h4>
+                        <h4>Data Center Virtual</h4>
 
                         <p>
-
-                            Escenarios empresariales interactivos.
-
+                            Explora servidores, racks y conexiones empresariales.
                         </p>
 
-                        <div class="progress">
-
-                            <div class="progress-bar"
-                                style="width:82%;"></div>
-
-                        </div>
-
-                        <button class="btn btn-primary w-100 mt-4">
+                        <button class="btn btn-primary w-100">
 
                             Ingresar
 
@@ -332,8 +269,6 @@
 
                 </div>
 
-                <!-- MODULO -->
-
                 <div class="col-lg-4">
 
                     <div class="module-card featured-module">
@@ -341,35 +276,22 @@
                         <div class="module-top">
 
                             <div class="module-icon">
-
-                                <i class="bi bi-badge-vr-fill"></i>
-
+                                <i class="bi bi-router-fill"></i>
                             </div>
 
                             <span class="module-status live">
-
                                 LIVE
-
                             </span>
 
                         </div>
 
-                        <h4>Laboratorio 3D</h4>
+                        <h4>Infraestructura de Red</h4>
 
                         <p>
-
-                            Ambientes inmersivos empresariales.
-
+                            Configura routers, switches y servidores virtuales.
                         </p>
 
-                        <div class="progress">
-
-                            <div class="progress-bar"
-                                style="width:65%;"></div>
-
-                        </div>
-
-                        <button class="btn btn-primary w-100 mt-4">
+                        <button class="btn btn-primary w-100">
 
                             Abrir Laboratorio
 
@@ -379,8 +301,6 @@
 
                 </div>
 
-                <!-- MODULO -->
-
                 <div class="col-lg-4">
 
                     <div class="module-card">
@@ -388,37 +308,24 @@
                         <div class="module-top">
 
                             <div class="module-icon">
-
-                                <i class="bi bi-patch-question-fill"></i>
-
+                                <i class="bi bi-shield-fill-check"></i>
                             </div>
 
                             <span class="module-status">
-
-                                IA
-
+                                SEGURIDAD
                             </span>
 
                         </div>
 
-                        <h4>Evaluaciones</h4>
+                        <h4>Cyber Range 3D</h4>
 
                         <p>
-
-                            Cuestionarios inteligentes y reportes automáticos.
-
+                            Simulación de ataques y defensa en tiempo real.
                         </p>
 
-                        <div class="progress">
+                        <button class="btn btn-primary w-100">
 
-                            <div class="progress-bar"
-                                style="width:91%;"></div>
-
-                        </div>
-
-                        <button class="btn btn-primary w-100 mt-4">
-
-                            Realizar Evaluación
+                            Ejecutar
 
                         </button>
 
@@ -426,16 +333,114 @@
 
                 </div>
 
-            </div>0
+            </div>
+
+        </section>
+
+        <!-- VISOR 3D -->
+
+        <section class="modules-grid">
+
+            <div class="module-card">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <h3>
+                        <i class="bi bi-box"></i>
+                        Visor 3D
+                    </h3>
+
+                    <span class="module-status live">
+                        ONLINE
+                    </span>
+
+                </div>
+
+                <div style="
+                    background:#0f172a;
+                    border:1px solid rgba(255,255,255,.08);
+                    border-radius:20px;
+                    height:550px;
+                    display:flex;
+                    flex-direction:column;
+                    justify-content:center;
+                    align-items:center;
+                    color:#94a3b8;
+                ">
+
+                    <i class="bi bi-badge-vr-fill"
+                        style="font-size:5rem;margin-bottom:20px;"></i>
+
+                    <h4>Motor de Simulación 3D</h4>
+
+                    <p>
+                        Aquí se integrará Three.js, Babylon.js o Unity WebGL.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ESTADÍSTICAS -->
+
+        <section class="modules-grid">
+
+            <div class="row g-4">
+
+                <div class="col-lg-3">
+
+                    <div class="module-card text-center">
+
+                        <h2>18</h2>
+                        <p>Laboratorios Activos</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <div class="module-card text-center">
+
+                        <h2>92%</h2>
+                        <p>Precisión</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <div class="module-card text-center">
+
+                        <h2>124h</h2>
+                        <p>Tiempo de Práctica</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <div class="module-card text-center">
+
+                        <h2>8</h2>
+                        <p>Certificaciones</p>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </section>
 
     </main>
 
-    <!-- JS -->
     <script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 
 </html>
-```
