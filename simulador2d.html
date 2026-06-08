@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 
@@ -7,16 +6,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nexus Dynamics - Training Platform</title>
+    <title>OmniTrain | Simulador 2D</title>
 
-    <!-- BOOTSTRAP -->
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
-    <!-- BOOTSTRAP ICONS -->
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- GOOGLE FONT -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
@@ -27,9 +26,7 @@
 
 <body>
 
-    <!-- =========================================================
-         SIDEBAR
-    ========================================================= -->
+    <!-- SIDEBAR -->
 
     <aside class="sidebar">
 
@@ -38,26 +35,22 @@
             <img src="img/logo.jpeg" alt="Logo">
 
             <div>
-
-                <h4>NEXUS</h4>
+                <h4>OMNITRAIN</h4>
                 <span>Training Platform</span>
-
             </div>
 
         </div>
 
-        <!-- MENU -->
-
         <ul class="sidebar-menu">
 
-            <li class="active">
-                <a href="#">
+            <li>
+                <a href="index.html">
                     <i class="bi bi-grid-1x2-fill"></i>
                     Dashboard
                 </a>
             </li>
 
-            <li>
+            <li class="active">
                 <a href="simulador2d.html">
                     <i class="bi bi-display-fill"></i>
                     Simulador 2D
@@ -65,7 +58,7 @@
             </li>
 
             <li>
-                <a href="#">
+                <a href="simulador3d.html">
                     <i class="bi bi-badge-vr-fill"></i>
                     Simulador 3D
                 </a>
@@ -92,27 +85,11 @@
                 </a>
             </li>
 
-            <li>
-                <a href="#">
-                    <i class="bi bi-award-fill"></i>
-                    Certificaciones
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <i class="bi bi-gear-fill"></i>
-                    Configuración
-                </a>
-            </li>
-
         </ul>
 
     </aside>
 
-    <!-- =========================================================
-         MAIN CONTENT
-    ========================================================= -->
+    <!-- MAIN CONTENT -->
 
     <main class="main-content">
 
@@ -120,21 +97,15 @@
 
         <div class="topbar">
 
-            <div class="search-box">
-
-                <i class="bi bi-search"></i>
-
-                <input type="text"
-                    placeholder="Buscar simulaciones, entrenamientos o reportes...">
-
-            </div>
+            <h2>
+                <i class="bi bi-display-fill"></i>
+                Simulador 2D
+            </h2>
 
             <div class="topbar-user">
 
                 <div class="xp-box">
-
                     XP: 4,820
-
                 </div>
 
                 <img src="https://i.pravatar.cc/100"
@@ -150,89 +121,77 @@
 
             <div class="row align-items-center">
 
-                <div class="col-lg-7">
+                <div class="col-lg-8">
 
                     <span class="welcome-badge">
 
-                        Plataforma Empresarial Inteligente
+                        MÓDULO INTERACTIVO
 
                     </span>
 
                     <h1>
-
-                        Bienvenido,
-                        Luis Fernando 👋
-
+                        Simulación Empresarial 2D
                     </h1>
 
                     <p>
 
-                        Continúa tu entrenamiento empresarial inmersivo
-                        mediante simulaciones 2D, laboratorios virtuales 3D,
-                        dashboards y evaluaciones inteligentes.
+                        Practica la toma de decisiones empresariales mediante
+                        escenarios interactivos. Gestiona recursos, responde
+                        incidentes operativos y mejora tus habilidades de análisis.
 
                     </p>
-
-                    <!-- PROGRESS -->
 
                     <div class="progress-section">
 
                         <div class="progress-header">
 
-                            <span>Progreso General</span>
-                            <strong>78%</strong>
+                            <span>Progreso del Curso</span>
+                            <strong>82%</strong>
 
                         </div>
 
                         <div class="progress">
 
                             <div class="progress-bar"
-                                style="width:78%;"></div>
+                                style="width:82%;"></div>
 
                         </div>
 
                     </div>
-
-                    <!-- BUTTONS -->
 
                     <div class="hero-buttons">
 
                         <button class="btn btn-primary btn-lg">
 
                             <i class="bi bi-play-fill"></i>
-                            Continuar Simulación
+                            Iniciar Simulación
 
                         </button>
 
-                        <button class="btn btn-outline-primary btn-lg">
+                        <a href="index.html"
+                            class="btn btn-outline-primary btn-lg">
 
-                            Ver Reportes
+                            Volver al Dashboard
 
-                        </button>
+                        </a>
 
                     </div>
 
                 </div>
 
-                <!-- RIGHT PANEL -->
-
-                <div class="col-lg-5">
+                <div class="col-lg-4">
 
                     <div class="training-panel">
 
                         <div class="panel-card">
 
                             <div class="panel-icon">
-
-                                <i class="bi bi-display-fill"></i>
-
+                                <i class="bi bi-diagram-3-fill"></i>
                             </div>
 
                             <div>
-
-                                <h5>Simulación 2D</h5>
-                                <p>Resolución de incidentes</p>
-
+                                <h5>Escenarios</h5>
+                                <p>12 disponibles</p>
                             </div>
 
                         </div>
@@ -240,16 +199,12 @@
                         <div class="panel-card">
 
                             <div class="panel-icon">
-
-                                <i class="bi bi-badge-vr-fill"></i>
-
+                                <i class="bi bi-clock-history"></i>
                             </div>
 
                             <div>
-
-                                <h5>Laboratorio 3D</h5>
-                                <p>Infraestructura virtual</p>
-
+                                <h5>Tiempo Promedio</h5>
+                                <p>35 minutos</p>
                             </div>
 
                         </div>
@@ -257,16 +212,12 @@
                         <div class="panel-card">
 
                             <div class="panel-icon">
-
-                                <i class="bi bi-patch-question-fill"></i>
-
+                                <i class="bi bi-trophy-fill"></i>
                             </div>
 
                             <div>
-
-                                <h5>Evaluación IA</h5>
-                                <p>Exámenes automáticos</p>
-
+                                <h5>Mejor Puntaje</h5>
+                                <p>95 / 100</p>
                             </div>
 
                         </div>
@@ -279,13 +230,11 @@
 
         </section>
 
-        <!-- MODULES -->
+        <!-- ESCENARIOS -->
 
         <section class="modules-grid">
 
             <div class="row g-4">
-
-                <!-- MODULO -->
 
                 <div class="col-lg-4">
 
@@ -294,35 +243,24 @@
                         <div class="module-top">
 
                             <div class="module-icon">
-
-                                <i class="bi bi-display-fill"></i>
-
+                                <i class="bi bi-building"></i>
                             </div>
 
                             <span class="module-status">
-
-                                ACTIVO
-
+                                BÁSICO
                             </span>
 
                         </div>
 
-                        <h4>Simulador 2D</h4>
+                        <h4>Gestión Empresarial</h4>
 
                         <p>
 
-                            Escenarios empresariales interactivos.
+                            Administra recursos, personal y operaciones diarias.
 
                         </p>
 
-                        <div class="progress">
-
-                            <div class="progress-bar"
-                                style="width:82%;"></div>
-
-                        </div>
-
-                        <button class="btn btn-primary w-100 mt-4">
+                        <button class="btn btn-primary w-100">
 
                             Ingresar
 
@@ -332,8 +270,6 @@
 
                 </div>
 
-                <!-- MODULO -->
-
                 <div class="col-lg-4">
 
                     <div class="module-card featured-module">
@@ -341,45 +277,32 @@
                         <div class="module-top">
 
                             <div class="module-icon">
-
-                                <i class="bi bi-badge-vr-fill"></i>
-
+                                <i class="bi bi-shield-fill-check"></i>
                             </div>
 
                             <span class="module-status live">
-
-                                LIVE
-
+                                POPULAR
                             </span>
 
                         </div>
 
-                        <h4>Laboratorio 3D</h4>
+                        <h4>Respuesta a Incidentes</h4>
 
                         <p>
 
-                            Ambientes inmersivos empresariales.
+                            Simula situaciones críticas y toma decisiones rápidas.
 
                         </p>
 
-                        <div class="progress">
+                        <button class="btn btn-primary w-100">
 
-                            <div class="progress-bar"
-                                style="width:65%;"></div>
-
-                        </div>
-
-                        <button class="btn btn-primary w-100 mt-4">
-
-                            Abrir Laboratorio
+                            Iniciar
 
                         </button>
 
                     </div>
 
                 </div>
-
-                <!-- MODULO -->
 
                 <div class="col-lg-4">
 
@@ -388,37 +311,26 @@
                         <div class="module-top">
 
                             <div class="module-icon">
-
-                                <i class="bi bi-patch-question-fill"></i>
-
+                                <i class="bi bi-graph-up-arrow"></i>
                             </div>
 
                             <span class="module-status">
-
-                                IA
-
+                                AVANZADO
                             </span>
 
                         </div>
 
-                        <h4>Evaluaciones</h4>
+                        <h4>Planeación Estratégica</h4>
 
                         <p>
 
-                            Cuestionarios inteligentes y reportes automáticos.
+                            Define objetivos, indicadores y crecimiento organizacional.
 
                         </p>
 
-                        <div class="progress">
+                        <button class="btn btn-primary w-100">
 
-                            <div class="progress-bar"
-                                style="width:91%;"></div>
-
-                        </div>
-
-                        <button class="btn btn-primary w-100 mt-4">
-
-                            Realizar Evaluación
+                            Abrir
 
                         </button>
 
@@ -426,16 +338,47 @@
 
                 </div>
 
-            </div>0
+            </div>
+
+        </section>
+
+        <!-- ÁREA DEL SIMULADOR -->
+
+        <section class="modules-grid">
+
+            <div class="module-card">
+
+                <h3 class="mb-4">
+
+                    <i class="bi bi-controller"></i>
+                    Área de Simulación
+
+                </h3>
+
+                <div style="
+                    background:#0f172a;
+                    border:1px solid rgba(255,255,255,.08);
+                    border-radius:20px;
+                    height:500px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-size:1.2rem;
+                    color:#94a3b8;
+                ">
+
+                    Aquí se cargará el simulador 2D
+
+                </div>
+
+            </div>
 
         </section>
 
     </main>
 
-    <!-- JS -->
     <script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 
 </html>
-```
