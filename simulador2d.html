@@ -8,44 +8,37 @@
 
     <title>OmniTrain | Simulador 2D</title>
 
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
 
-    <!-- SIDEBAR -->
-
     <aside class="sidebar">
 
-        <a href="index.html" class="logo-link">
-
-            <div class="sidebar-logo">
-
+        <div class="sidebar-logo">
+            <a href="index.html" class="logo-link">
                 <img src="img/logo.jpeg" alt="Logo">
-
-                <div>
-                    <h4>NEXUS</h4>
-                    <span>Training Platform</span>
-                </div>
-
+            </a>
+            <div>
+                <h4>NEXUS</h4>
+                <span>Training Platform</span>
             </div>
+        </div>
 
-        </a>
+        <button class="menu-toggle" id="menuToggle">
+            <i class="bi bi-list"></i>
+        </button>
 
-        <ul class="sidebar-menu">
+        <ul class="sidebar-menu" id="sidebarMenu">
 
             <li>
                 <a href="index.html">
@@ -93,11 +86,7 @@
 
     </aside>
 
-    <!-- MAIN CONTENT -->
-
     <main class="main-content">
-
-        <!-- TOPBAR -->
 
         <div class="topbar">
 
@@ -112,7 +101,6 @@
                     XP: 4,820
                 </div>
 
-                <!-- Avatar Local -->
                 <img src="img/avatar.jpg"
                     class="user-avatar"
                     alt="Usuario">
@@ -120,8 +108,6 @@
             </div>
 
         </div>
-
-        <!-- HERO -->
 
         <section class="welcome-card">
 
@@ -138,7 +124,7 @@
                     </h1>
 
                     <p>
-                        Practica la toma de decisiones empresariales mediante
+                        Practica la toma de decisionesempresariales mediante
                         escenarios interactivos. Gestiona recursos, responde
                         incidentes operativos y mejora tus habilidades de análisis.
                     </p>
@@ -227,8 +213,6 @@
             </div>
 
         </section>
-
-        <!-- ESCENARIOS -->
 
         <section class="modules-grid">
 
@@ -328,8 +312,6 @@
 
         </section>
 
-        <!-- ÁREA DEL SIMULADOR -->
-
         <section class="modules-grid">
 
             <div class="module-card">
@@ -364,6 +346,28 @@
     </main>
 
     <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.getElementById("menuToggle");
+            const sidebarMenu = document.getElementById("sidebarMenu");
+
+            if (menuToggle && sidebarMenu) {
+                menuToggle.addEventListener("click", function () {
+                    // Alterna la clase active para mostrar/ocultar el menú lateral
+                    sidebarMenu.classList.toggle("active");
+                    
+                    // Cambia dinámicamente el icono de la hamburguesa (Líneas / Equis)
+                    const icon = menuToggle.querySelector("i");
+                    if (sidebarMenu.classList.contains("active")) {
+                        icon.classList.replace("bi-list", "bi-x-lg");
+                    } else {
+                        icon.classList.replace("bi-x-lg", "bi-list");
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 

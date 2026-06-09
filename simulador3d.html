@@ -8,42 +8,37 @@
 
     <title>OmniTrain | Laboratorio 3D</title>
 
-    <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
 
-    <!-- SIDEBAR -->
-
     <aside class="sidebar">
 
-        <a href="index.html" class="logo-link">
         <div class="sidebar-logo">
-
-            <img src="img/logo.jpeg" alt="Logo">
-
+            <a href="index.html" class="logo-link">
+                <img src="img/logo.jpeg" alt="Logo">
+            </a>
             <div>
                 <h4>NEXUS</h4>
-                    <span>Training Platform</span>
+                <span>Training Platform</span>
             </div>
-
         </div>
-        </a>
 
-        <ul class="sidebar-menu">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <ul class="sidebar-menu" id="sidebarMenu">
 
             <li>
                 <a href="index.html">
@@ -91,11 +86,7 @@
 
     </aside>
 
-    <!-- MAIN CONTENT -->
-
     <main class="main-content">
-
-        <!-- TOPBAR -->
 
         <div class="topbar">
 
@@ -110,15 +101,13 @@
                     XP: 4,820
                 </div>
 
-<img src="img/avatar.jpg"
-    class="user-avatar"
-    alt="Usuario">
+                <img src="img/avatar.jpg"
+                    class="user-avatar"
+                    alt="Usuario">
 
             </div>
 
         </div>
-
-        <!-- HERO -->
 
         <section class="welcome-card">
 
@@ -234,8 +223,6 @@
 
         </section>
 
-        <!-- LABORATORIOS -->
-
         <section class="modules-grid">
 
             <div class="row g-4">
@@ -340,8 +327,6 @@
 
         </section>
 
-        <!-- VISOR 3D -->
-
         <section class="modules-grid">
 
             <div class="module-card">
@@ -385,8 +370,6 @@
             </div>
 
         </section>
-
-        <!-- ESTADÍSTICAS -->
 
         <section class="modules-grid">
 
@@ -443,6 +426,28 @@
     </main>
 
     <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.getElementById("menuToggle");
+            const sidebarMenu = document.getElementById("sidebarMenu");
+
+            if (menuToggle && sidebarMenu) {
+                menuToggle.addEventListener("click", function () {
+                    // Alterna la clase active para mostrar/ocultar el menú lateral
+                    sidebarMenu.classList.toggle("active");
+                    
+                    // Cambia dinámicamente el icono de la hamburguesa (Líneas / Equis)
+                    const icon = menuToggle.querySelector("i");
+                    if (sidebarMenu.classList.contains("active")) {
+                        icon.classList.replace("bi-list", "bi-x-lg");
+                    } else {
+                        icon.classList.replace("bi-x-lg", "bi-list");
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 
