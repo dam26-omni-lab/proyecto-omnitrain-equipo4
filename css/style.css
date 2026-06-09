@@ -105,7 +105,20 @@ body{
     letter-spacing:1px;
 }
 
+.logo-link{
+    text-decoration:none;
+    color:inherit;
+    display:block;
+}
 
+.logo-link:hover{
+    color:inherit;
+    text-decoration:none;
+}
+
+.sidebar-logo{
+    cursor:pointer;
+}
 
 .sidebar-menu{
 
