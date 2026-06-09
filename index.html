@@ -1,54 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Nexus Dynamics - Training Platform</title>
-
-    <!-- BOOTSTRAP -->
+    <title>NEXUS | Dashboard</title>
+    
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
-    <!-- BOOTSTRAP ICONS -->
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- GOOGLE FONT -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
-    <!-- CSS -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/style.css">
-
 </head>
-
 <body>
 
-    <!-- SIDEBAR -->
-
     <aside class="sidebar">
-
-        <a href="index.html" class="logo-link">
-
-            <div class="sidebar-logo">
-
+        
+        <div class="sidebar-logo">
+            <a href="index.html" class="logo-link">
                 <img src="img/logo.jpeg" alt="Logo">
-
-                <div>
-                    <h4>NEXUS</h4>
-                    <span>Training Platform</span>
-                </div>
-
+            </a>
+            <div>
+                <h4>NEXUS</h4>
+                <span>Training Platform</span>
             </div>
+        </div>
 
-        </a>
+        <button class="menu-toggle" id="menuToggle">
+            <i class="bi bi-list"></i>
+        </button>
 
-        <ul class="sidebar-menu">
-
+        <ul class="sidebar-menu" id="sidebarMenu">
             <li class="active">
-                <a href="#">
+                <a href="index.html">
                     <i class="bi bi-grid-1x2-fill"></i>
                     Dashboard
                 </a>
@@ -88,7 +73,7 @@
                     Evaluaciones
                 </a>
             </li>
-
+            
             <li>
                 <a href="#">
                     <i class="bi bi-award-fill"></i>
@@ -102,274 +87,61 @@
                     Configuración
                 </a>
             </li>
-
         </ul>
 
     </aside>
 
-    <!-- MAIN -->
-
     <main class="main-content">
-
-        <!-- TOPBAR -->
-
+        
         <div class="topbar">
-
             <div class="search-box">
-
                 <i class="bi bi-search"></i>
-
-                <input type="text"
-                    placeholder="Buscar simulaciones, entrenamientos o reportes...">
-
+                <input type="text" placeholder="Buscar módulos, kpis, simuladores...">
             </div>
-
+            
             <div class="topbar-user">
-
                 <div class="xp-box">
                     XP: 4,820
                 </div>
-
-                <!-- AVATAR LOCAL -->
-                <img src="img/avatar.jpg"
-                    class="user-avatar"
-                    alt="Usuario">
-
+                <img src="img/avatar.jpg" class="user-avatar" alt="Usuario">
             </div>
-
         </div>
 
-        <!-- HERO -->
-
         <section class="welcome-card">
-
-            <div class="row align-items-center">
-
-                <div class="col-lg-7">
-
-                    <span class="welcome-badge">
-                        Plataforma Empresarial Inteligente
-                    </span>
-
-                    <h1>
-                        Bienvenido,
-                        Luis Fernando 👋
-                    </h1>
-
-                    <p>
-                        Continúa tu entrenamiento empresarial inmersivo
-                        mediante simulaciones 2D, laboratorios virtuales 3D,
-                        dashboards y evaluaciones inteligentes.
-                    </p>
-
-                    <div class="progress-section">
-
-                        <div class="progress-header">
-                            <span>Progreso General</span>
-                            <strong>78%</strong>
-                        </div>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width:78%;"></div>
-                        </div>
-
-                    </div>
-
-                    <div class="hero-buttons">
-
-                        <button class="btn btn-primary btn-lg">
-
-                            <i class="bi bi-play-fill"></i>
-                            Continuar Simulación
-
-                        </button>
-
-                        <button class="btn btn-outline-primary btn-lg">
-
-                            Ver Reportes
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <div class="col-lg-5">
-
-                    <div class="training-panel">
-
-                        <a href="simulador2d.html" class="panel-link">
-
-                            <div class="panel-card">
-
-                                <div class="panel-icon">
-                                    <i class="bi bi-display-fill"></i>
-                                </div>
-
-                                <div>
-                                    <h5>Simulación 2D</h5>
-                                    <p>Resolución de incidentes</p>
-                                </div>
-
-                            </div>
-
-                        </a>
-
-                        <a href="simulador3d.html" class="panel-link">
-
-                            <div class="panel-card">
-
-                                <div class="panel-icon">
-                                    <i class="bi bi-badge-vr-fill"></i>
-                                </div>
-
-                                <div>
-                                    <h5>Laboratorio 3D</h5>
-                                    <p>Infraestructura virtual</p>
-                                </div>
-
-                            </div>
-
-                        </a>
-
-                        <div class="panel-card">
-
-                            <div class="panel-icon">
-                                <i class="bi bi-patch-question-fill"></i>
-                            </div>
-
-                            <div>
-                                <h5>Evaluación IA</h5>
-                                <p>Exámenes automáticos</p>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+            <span class="welcome-badge">PLATAFORMA ACTIVA</span>
+            <h1>Bienvenido a <br>NEXUS</h1>
+            <p>Monitorea tu progreso, accede a los simuladores de entrenamiento en 2D y 3D, y pon a prueba tus habilidades contra amenazas de ciberseguridad.</p>
+            
+            <div class="hero-buttons">
+                <a href="simulador2d.html" class="btn btn-primary btn-lg">Iniciar Simulador 2D</a>
+                <a href="simulador3d.html" class="btn btn-outline-primary btn-lg">Explorar VR (3D)</a>
             </div>
-
         </section>
 
-        <!-- MÓDULOS -->
+        </main>
 
-        <section class="modules-grid">
-
-            <div class="row g-4">
-
-                <div class="col-lg-4">
-
-                    <div class="module-card">
-
-                        <div class="module-top">
-
-                            <div class="module-icon">
-                                <i class="bi bi-display-fill"></i>
-                            </div>
-
-                            <span class="module-status">
-                                ACTIVO
-                            </span>
-
-                        </div>
-
-                        <h4>Simulador 2D</h4>
-
-                        <p>
-                            Escenarios empresariales interactivos.
-                        </p>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width:82%;"></div>
-                        </div>
-
-                        <button class="btn btn-primary w-100 mt-4">
-                            Ingresar
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <div class="col-lg-4">
-
-                    <div class="module-card featured-module">
-
-                        <div class="module-top">
-
-                            <div class="module-icon">
-                                <i class="bi bi-badge-vr-fill"></i>
-                            </div>
-
-                            <span class="module-status live">
-                                LIVE
-                            </span>
-
-                        </div>
-
-                        <h4>Laboratorio 3D</h4>
-
-                        <p>
-                            Ambientes inmersivos empresariales.
-                        </p>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width:65%;"></div>
-                        </div>
-
-                        <button class="btn btn-primary w-100 mt-4">
-                            Abrir Laboratorio
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <div class="col-lg-4">
-
-                    <div class="module-card">
-
-                        <div class="module-top">
-
-                            <div class="module-icon">
-                                <i class="bi bi-patch-question-fill"></i>
-                            </div>
-
-                            <span class="module-status">
-                                IA
-                            </span>
-
-                        </div>
-
-                        <h4>Evaluaciones</h4>
-
-                        <p>
-                            Cuestionarios inteligentes y reportes automáticos.
-                        </p>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width:91%;"></div>
-                        </div>
-
-                        <button class="btn btn-primary w-100 mt-4">
-                            Realizar Evaluación
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <!-- JS -->
     <script src="js/bootstrap.bundle.min.js"></script>
 
-</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.getElementById("menuToggle");
+            const sidebarMenu = document.getElementById("sidebarMenu");
 
+            if (menuToggle && sidebarMenu) {
+                menuToggle.addEventListener("click", function () {
+                    // Abre/cierra el menú usando CSS transform
+                    sidebarMenu.classList.toggle("active");
+                    
+                    // Alterna el icono de la hamburguesa (Líneas / X)
+                    const icon = menuToggle.querySelector("i");
+                    if (sidebarMenu.classList.contains("active")) {
+                        icon.classList.replace("bi-list", "bi-x-lg");
+                    } else {
+                        icon.classList.replace("bi-x-lg", "bi-list");
+                    }
+                });
+            }
+        });
+    </script>
+</body>
 </html>
