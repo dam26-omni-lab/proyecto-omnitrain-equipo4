@@ -43,3 +43,13 @@
 .bi-hdd-network-fill::before{content:"\f42a";}
 .bi-router-fill::before{content:"\f5a7";}
 .bi-box::before{content:"\f1c8";}
+
+/* MENÚ HAMBURGUESA */
+.bi-list::before{
+    content:"\f479";
+}
+
+/* BOTÓN CERRAR (X) */
+.bi-x-lg::before{
+    content:"\f62a";
+}
