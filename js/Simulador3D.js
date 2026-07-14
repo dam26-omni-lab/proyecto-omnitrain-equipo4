@@ -69,7 +69,7 @@ function init() {
     scene.add(directionalLight);
 
     // Carga del modelo nuevo
-    const rutaModelo = '../model/the_design_lab.glb';
+    const rutaModelo = '../model/the_design_lab-v1 (1).glb';
     const loader = new GLTFLoader();
 
     console.log("Intentando cargar el modelo desde la ruta:", rutaModelo);
