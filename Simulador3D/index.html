@@ -4,11 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>NEXUS | Simulador 2D</title>
+    <title>NEXUS | Simulador 3D (VR)</title>
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/style.css">
+    
+    <style>
+        .render-viewport {
+            width: 100%;
+            height: 500px;
+            background: #020617;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 32px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.1) inset;
+        }
+        .render-viewport i {
+            font-size: 5rem;
+            color: rgba(6, 182, 212, 0.5);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+    </style>
 </head>
 <body>
 
@@ -38,15 +63,15 @@
                 </a>
             </li>
 
-            <li class="active">
-                <a href="index.html">
+            <li>
+                <a href="../Simulador2D/index.html">
                     <i class="bi bi-display-fill"></i>
                     Simulador 2D
                 </a>
             </li>
 
-            <li>
-                <a href="../Simulador3D/index.html">
+            <li class="active">
+                <a href="index.html">
                     <i class="bi bi-badge-vr-fill"></i>
                     Simulador 3D
                 </a>
@@ -74,37 +99,38 @@
         <div class="topbar">
             <div class="search-box">
                 <i class="bi bi-search"></i>
-                <input type="text" placeholder="Buscar escenarios, scripts, herramientas...">
+                <input type="text" placeholder="Buscar servidores físicos, racks, protocolos...">
             </div>
             
             <div class="topbar-user">
                 <div class="xp-box">
-                    Nivel Lógico: 15
+                    Hardware VR: Conectado
                 </div>
                 <img src="../img/avatar.jpg" class="user-avatar" alt="Usuario">
             </div>
         </div>
 
-        <section class="welcome-card">
-            <span class="welcome-badge">ENTORNO DE PRUEBAS 2D</span>
-            <h1>Simulador <br>Táctico de Redes</h1>
-            <p>Interacciona con topologías de red en un plano bidimensional. Practica mitigación de ataques DDoS, despliegue de firewalls y monitoreo de tráfico en tiempo real impulsado por Phaser.</p>
+        <section class="welcome-card featured-module">
+            <span class="welcome-badge live">SISTEMA VR LISTO</span>
+            <h1>Centro de Datos <br>Inmersivo</h1>
+            <p>Navega físicamente por los servidores de la instalación en primera persona (3D). Identifica vulnerabilidades de hardware, cableado defectuoso y accesos no autorizados en el rack principal.</p>
             
             <div class="hero-buttons">
-                <!-- BOTÓN QUE LLEVA A PROTOTIPO.HTML -->
-                <a href="Prototipo.html" class="btn btn-primary btn-lg">Ir a Prototipo 2D</a>
-                <button class="btn btn-outline-primary btn-lg">Ver Log de Eventos</button>
+                <!-- BOTÓN QUE LLEVA A PROTOTIPO.HTML DE 3D -->
+                <a href="Prototipo.html" class="btn btn-primary btn-lg"><i class="bi bi-badge-vr"></i> Abrir Simulador 3D</a>
+                <button class="btn btn-outline-primary btn-lg">Configurar Gráficos</button>
             </div>
         </section>
 
-        <!-- Contenedor del juego -->
-        <div id="game-container"></div>
+        <!-- Contenedor ilustrativo del entorno 3D -->
+        <div class="render-viewport" id="canvas3d">
+            <i class="bi bi-box"></i>
+        </div>
 
     </main>
 
     <script src="../js/bootstrap.bundle.min.js"></script>
-    <script src="../js/phaser.min.js"></script>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const menuToggle = document.getElementById("menuToggle");
@@ -123,6 +149,5 @@
             }
         });
     </script>
-    <script src="../js/efecto.js"></script>
 </body>
 </html>
