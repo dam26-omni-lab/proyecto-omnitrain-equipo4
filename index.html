@@ -1,31 +1,28 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
-
 <head>
-
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>NEXUS DYNAMIC | Simulador 2D</title>
+    <title>NEXUS | Dashboard</title>
 
     <!-- Bootstrap Local -->
-    <!-- Usamos ../ para salir de la carpeta Simulador2D y entrar a css -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    
-    <link rel="stylesheet" href="../css/bootstrap-icons.css">
-    
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 
+    <!-- Bootstrap Icons Local -->
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
-
 <body>
 
     <aside class="sidebar">
-
+        
+        <!-- MODIFICACIÓN DEL LOGO -->
         <div class="sidebar-logo">
-            <a href="/index.html" class="logo-link">
-                <img src="/img/logo.jpeg" alt="Logo">
+            <a href="index.html" class="logo-link">
+                <!-- Imagen del logo (lado izquierdo) -->
+                <img src="img/logo.jpeg" alt="Logo NEXUS">
             </a>
             <div>
                 <h4>NEXUS</h4>
@@ -38,23 +35,22 @@
         </button>
 
         <ul class="sidebar-menu" id="sidebarMenu">
-
-            <li>
-                <a href="/index.html">
+            <li class="active">
+                <a href="index.html">
                     <i class="bi bi-grid-1x2-fill"></i>
                     Dashboard
                 </a>
             </li>
 
-            <li class="active">
-                <a href="/Simulador2D/index.html">
+            <li>
+                <a href="Simulador2D/index.html">
                     <i class="bi bi-display-fill"></i>
                     Simulador 2D
                 </a>
             </li>
 
             <li>
-                <a href="simulador3d.html">
+                <a href="Simulador3D/index.html">
                     <i class="bi bi-badge-vr-fill"></i>
                     Simulador 3D
                 </a>
@@ -80,273 +76,54 @@
                     Evaluaciones
                 </a>
             </li>
+            
+            <li>
+                <a href="#">
+                    <i class="bi bi-award-fill"></i>
+                    Certificaciones
+                </a>
+            </li>
 
+            <li>
+                <a href="#">
+                    <i class="bi bi-gear-fill"></i>
+                    Configuración
+                </a>
+            </li>
         </ul>
 
     </aside>
 
     <main class="main-content">
-
+        
         <div class="topbar">
-
-            <h2>
-                <i class="bi bi-display-fill"></i>
-                Simulador 2D
-            </h2>
-
+            <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" placeholder="Buscar módulos, kpis, simuladores...">
+            </div>
+            
             <div class="topbar-user">
-
                 <div class="xp-box">
                     XP: 4,820
                 </div>
-
-                <img src="/img/avatar.jpg"
-                    class="user-avatar"
-                    alt="Usuario">
-
+                <img src="img/avatar.jpg" class="user-avatar" alt="Usuario">
             </div>
-
         </div>
 
         <section class="welcome-card">
-
-            <div class="row align-items-center">
-
-                <div class="col-lg-8">
-
-                    <span class="welcome-badge">
-                        MÓDULO INTERACTIVO
-                    </span>
-
-                    <h1>
-                        Simulación Empresarial 2D
-                    </h1>
-
-                    <p>
-                        Practica la toma de decisionesempresariales mediante
-                        escenarios interactivos. Gestiona recursos, responde
-                        incidentes operativos y mejora tus habilidades de análisis.
-                    </p>
-
-                    <div class="progress-section">
-
-                        <div class="progress-header">
-                            <span>Progreso del Curso</span>
-                            <strong>82%</strong>
-                        </div>
-
-                        <div class="progress">
-                            <div class="progress-bar"
-                                style="width:82%;"></div>
-                        </div>
-
-                    </div>
-
-                    <div class="hero-buttons">
-
-                        <button class="btn btn-primary btn-lg">
-                            <a href="/Simulador2D/Prototipo.html">                    
-
-                            Iniciar Simulación 
-                        
-                        </a>
-
-                        </button>
-
-                        <a href="/index.html"
-                            class="btn btn-outline-primary btn-lg">
-
-                            Volver al Dashboard
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-                <div class="col-lg-4">
-
-                    <div class="training-panel">
-
-                        <div class="panel-card">
-
-                            <div class="panel-icon">
-                                <i class="bi bi-diagram-3-fill"></i>
-                            </div>
-
-                            <div>
-                                <h5>Escenarios</h5>
-                                <p>12 disponibles</p>
-                            </div>
-
-                        </div>
-
-                        <div class="panel-card">
-
-                            <div class="panel-icon">
-                                <i class="bi bi-clock-history"></i>
-                            </div>
-
-                            <div>
-                                <h5>Tiempo Promedio</h5>
-                                <p>35 minutos</p>
-                            </div>
-
-                        </div>
-
-                        <div class="panel-card">
-
-                            <div class="panel-icon">
-                                <i class="bi bi-trophy-fill"></i>
-                            </div>
-
-                            <div>
-                                <h5>Mejor Puntaje</h5>
-                                <p>95 / 100</p>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+            <span class="welcome-badge">PLATAFORMA ACTIVA</span>
+            <h1>Bienvenido a <br>NEXUS</h1>
+            <p>Monitorea tu progreso, accede a los simuladores de entrenamiento en 2D y 3D, y pon a prueba tus habilidades contra amenazas de ciberseguridad.</p>
+            
+            <div class="hero-buttons">
+                <a href="Simulador2D/index.html" class="btn btn-primary btn-lg">Iniciar Simulador 2D</a>
+                <a href="Simulador3D/index.html" class="btn btn-outline-primary btn-lg">Explorar VR (3D)</a>
             </div>
-
-        </section>
-
-        <section class="modules-grid">
-
-            <div class="row g-4">
-
-                <div class="col-lg-4">
-
-                    <div class="module-card">
-
-                        <div class="module-top">
-
-                            <div class="module-icon">
-                                <i class="bi bi-building"></i>
-                            </div>
-
-                            <span class="module-status">
-                                BÁSICO
-                            </span>
-
-                        </div>
-
-                        <h4>Gestión Empresarial</h4>
-
-                        <p>
-                            Administra recursos, personal y operaciones diarias.
-                        </p>
-
-                        <button class="btn btn-primary w-100">
-                            Ingresar
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <div class="col-lg-4">
-
-                    <div class="module-card featured-module">
-
-                        <div class="module-top">
-
-                            <div class="module-icon">
-                                <i class="bi bi-shield-fill-check"></i>
-                            </div>
-
-                            <span class="module-status live">
-                                POPULAR
-                            </span>
-
-                        </div>
-
-                        <h4>Respuesta a Incidentes</h4>
-
-                        <p>
-                            Simula situaciones críticas y toma decisiones rápidas.
-                        </p>
-
-                        <button class="btn btn-primary w-100">
-                            Iniciar
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <div class="col-lg-4">
-
-                    <div class="module-card">
-
-                        <div class="module-top">
-
-                            <div class="module-icon">
-                                <i class="bi bi-graph-up-arrow"></i>
-                            </div>
-
-                            <span class="module-status">
-                                AVANZADO
-                            </span>
-
-                        </div>
-
-                        <h4>Planeación Estratégica</h4>
-
-                        <p>
-                            Define objetivos, indicadores y crecimiento organizacional.
-                        </p>
-
-                        <button class="btn btn-primary w-100">
-                            Abrir
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <section class="modules-grid">
-
-            <div class="module-card">
-
-                <h3 class="mb-4">
-
-                    <i class="bi bi-controller"></i>
-                    Área de Simulación
-<div id="game-container"></div>
-                </h3>
-
-                <div style="
-                    background:#0f172a;
-                    border:1px solid rgba(255,255,255,.08);
-                    border-radius:20px;
-                    height:500px;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    font-size:1.2rem;
-                    color:#94a3b8;
-                ">
-
-                    Aquí se cargará el simulador 2D
-
-                </div>
-
-            </div>
-
         </section>
 
     </main>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -355,10 +132,10 @@
 
             if (menuToggle && sidebarMenu) {
                 menuToggle.addEventListener("click", function () {
-                    // Alterna la clase active para mostrar/ocultar el menú lateral
+                    // Abre/cierra el menú usando CSS transform
                     sidebarMenu.classList.toggle("active");
                     
-                    // Cambia dinámicamente el icono de la hamburguesa (Líneas / Equis)
+                    // Alterna el icono de la hamburguesa (Líneas / X)
                     const icon = menuToggle.querySelector("i");
                     if (sidebarMenu.classList.contains("active")) {
                         icon.classList.replace("bi-list", "bi-x-lg");
@@ -370,11 +147,7 @@
         });
     </script>
 
-    
-
-<script src="/js/phaser.min.js"></script>
-<script src="/js/efecto.js"></script>
-
+<script src="js/phaser.min.js"></script>
+<script src="js/efecto.js"></script>
 </body>
-
 </html>
