@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NEXUS | Dashboard</title>
+
+    <!-- Bootstrap Local -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Bootstrap Icons Local -->
+    <link rel="stylesheet" href="css/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        
+        <!-- MODIFICACIÓN DEL LOGO -->
+        <div class="sidebar-logo">
+            <a href="index.html" class="logo-link">
+                <!-- Imagen del logo (lado izquierdo) -->
+                <img src="img/logo.jpeg" alt="Logo NEXUS">
+            </a>
+            <div>
+                <h4>NEXUS</h4>
+                <span>Training Platform</span>
+            </div>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <ul class="sidebar-menu" id="sidebarMenu">
+            <li class="active">
+                <a href="index.html">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="Simulador2D/index.html">
+                    <i class="bi bi-display-fill"></i>
+                    Simulador 2D
+                </a>
+            </li>
+
+            <li>
+                <a href="Simulador3D/index.html">
+                    <i class="bi bi-badge-vr-fill"></i>
+                    Simulador 3D
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bi bi-shield-lock-fill"></i>
+                    Cybersecurity
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    KPIs
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bi bi-patch-question-fill"></i>
+                    Evaluaciones
+                </a>
+            </li>
+            
+            <li>
+                <a href="#">
+                    <i class="bi bi-award-fill"></i>
+                    Certificaciones
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="bi bi-gear-fill"></i>
+                    Configuración
+                </a>
+            </li>
+        </ul>
+
+    </aside>
+
+    <main class="main-content">
+        
+        <div class="topbar">
+            <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" placeholder="Buscar módulos, kpis, simuladores...">
+            </div>
+            
+            <div class="topbar-user">
+                <div class="xp-box">
+                    XP: 4,820
+                </div>
+                <img src="img/avatar.jpg" class="user-avatar" alt="Usuario">
+            </div>
+        </div>
+
+        <section class="welcome-card">
+            <span class="welcome-badge">PLATAFORMA ACTIVA</span>
+            <h1>Bienvenido a NEXUS</h1>
+            <p>Monitorea tu progreso, accede a los simuladores de entrenamiento en 2D y 3D, y pon a prueba tus habilidades contra amenazas de ciberseguridad.</p>
+            
+
+            <div class="hero-buttons">
+                <a href="Simulador2D/index.html" class="btn btn-primary btn-lg">Iniciar Simulador 2D</a>
+                <a href="Simulador3D/index.html" class="btn btn-outline-primary btn-lg">Explorar VR (3D)</a>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/desconocidoindex.js"></script>
+
+
+
+<script src="js/phaser.min.js"></script>
+<script src="js/efecto.js"></script>
+</body>
+</html>
