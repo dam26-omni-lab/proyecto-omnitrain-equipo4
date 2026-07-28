@@ -1,8 +1,15 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
 import {
     getAuth,
     signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+import {
+    getFirestore,
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCA2TH-RB13iBVibZ8RkXcfvntk-GzvVNE",
@@ -16,6 +23,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 const form = document.getElementById("loginForm");
 
@@ -33,11 +41,36 @@ form.addEventListener("submit", async (e) => {
 
     try {
 
-        await signInWithEmailAndPassword(auth, email, password);
+       const credenciales = await signInWithEmailAndPassword(auth, email, password);
 
-        alert("Inicio de sesión correcto");
+const uid = credenciales.user.uid;
 
-        window.location.href = "dashboard.html";
+// Buscar el documento del usuario
+const docRef = doc(db, "usuarios", uid);
+const docSnap = await getDoc(docRef);
+
+if (!docSnap.exists()) {
+    alert("Este usuario no tiene un rol asignado.");
+    return;
+}
+
+const rol = docSnap.data().rol;
+
+// Perfil seleccionado en el formulario
+const perfilSeleccionado = document.getElementById("role").value;
+
+// Verificar que coincidan
+if (perfilSeleccionado !== rol) {
+    alert("El perfil seleccionado no corresponde con este usuario.");
+    return;
+}
+
+// Redireccionar
+if (rol === "admin") {
+    window.location.href = "dashboardAdmin.html";
+} else {
+    window.location.href = "dashboard.html";
+}
 
     } catch (error) {
 
