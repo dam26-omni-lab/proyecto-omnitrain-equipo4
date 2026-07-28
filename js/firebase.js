@@ -54,6 +54,10 @@ if (!docSnap.exists()) {
     return;
 }
 
+console.log("Documento existe:", docSnap.exists());
+console.log("Datos:", docSnap.data());
+     console.log("UID:", uid);
+        
 const rol = docSnap.data().rol;
 
 // Perfil seleccionado en el formulario
