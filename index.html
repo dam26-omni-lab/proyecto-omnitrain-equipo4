@@ -51,14 +51,20 @@
                 <!-- Perfil de acceso -->
                 <div class="mb-3">
                     <label for="role" class="form-label">Perfil de acceso</label>
-                    <select id="role" name="role" class="form-select" required>
-                        <option value="" selected disabled>Selecciona una opción</option>
-                        <option value="coordinador">
-                            Coordinador de capacitación (asigna módulos y tareas)
+                    <select id="role" class="form-select">
+
+                        <option value="" selected disabled>
+                            Selecciona una opción
                         </option>
+
+                        <option value="admin">
+                            Administrador
+                        </option>
+
                         <option value="colaborador">
-                            Colaborador en capacitación (realiza módulos asignados)
+                            Colaborador
                         </option>
+
                     </select>
                     <div class="invalid-feedback">
                         Debes seleccionar un perfil para continuar.
