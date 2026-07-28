@@ -11,6 +11,9 @@ import {
     getDoc
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
+
+
+
 const firebaseConfig = {
     apiKey: "AIzaSyCA2TH-RB13iBVibZ8RkXcfvntk-GzvVNE",
     authDomain: "formulario-1e3fb.firebaseapp.com",
