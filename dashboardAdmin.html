@@ -117,24 +117,7 @@
 
     <script src="js/bootstrap.bundle.min.js"></script>
 
-    <!-- UI Toggle Menu Script -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const menuToggle = document.getElementById("menuToggle");
-            const sidebarMenu = document.getElementById("sidebarMenu");
-
-            if (menuToggle && sidebarMenu) {
-                menuToggle.addEventListener("click", function () {
-                    sidebarMenu.classList.toggle("active");
-                    const icon = menuToggle.querySelector("i");
-                    icon.classList.replace(
-                        sidebarMenu.classList.contains("active") ? "bi-list" : "bi-x-lg",
-                        sidebarMenu.classList.contains("active") ? "bi-x-lg" : "bi-list"
-                    );
-                });
-            }
-        });
-    </script>
+    <script type="module" src="js/sidebar.js"></script>
 
     <!-- Scripts de tu proyecto original -->
     <script src="js/desconocidoindex.js"></script>
@@ -143,44 +126,7 @@
     <script src="js/efecto.js"></script>
 
     <!-- FIREBASE: PROTECCIÓN DE RUTA (Solo Admins) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCA2TH-RB13iBVibZ8RkXcfvntk-GzvVNE",
-            authDomain: "formulario-1e3fb.firebaseapp.com",
-            projectId: "formulario-1e3fb",
-            storageBucket: "formulario-1e3fb.firebasestorage.app",
-            messagingSenderId: "71309212065",
-            appId: "1:71309212065:web:f795a26f6aefbcb4d173e0",
-            measurementId: "G-977M92NLG0"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // Validar que quien entra aquí sea administrador
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const docRef = doc(db, "usuarios", user.uid);
-                const docSnap = await getDoc(docRef);
-                
-                if (docSnap.exists()) {
-                    const role = docSnap.data().rol;
-                    if (role !== 'admin') {
-                        // Si es colaborador pero forzó la URL, lo mandamos a su dashboard correcto
-                        window.location.href = "dashboard.html"; 
-                    }
-                    // Si es admin, se queda en la página sin problemas.
-                }
-            } else {
-                // Si no hay sesión iniciada, al login
-                window.location.href = "index.html"; 
-            }
-        });
-    </script>
+<!-- FIREBASE: PROTECCIÓN DE RUTA Y LECTURA DE PUNTAJES -->
+    <script type="module" src="js/admin.js"></script>
 </body>
 </html>
