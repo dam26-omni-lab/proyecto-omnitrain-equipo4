@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS DYNAMIC | Nivel 2 - Soporte de Redes</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: white;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- BARRA DE ESTRELLAS SUPERIOR DERECHA --- */
+        .stars-hud {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 2px solid #00bfff;
+            border-radius: 8px;
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 12px rgba(0, 191, 255, 0.3);
+            z-index: 50;
+        }
+
+        .stars-hud span.label {
+            font-size: 15px;
+            color: #94a3b8;
+            font-weight: bold;
+        }
+
+        .stars-container {
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2px;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #00bfff;
+            text-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
+        }
+
+        p.subtitulo {
+            color: #94a3b8;
+            font-size: 16px;
+        }
+
+        /* --- ÁREA PRINCIPAL DE TRABAJO --- */
+        .game-container {
+            width: 96%;
+            max-width: 980px;
+            height: 75vh;
+            background: #0f172a;
+            border: 2px solid rgba(0, 191, 255, 0.4);
+            border-radius: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            padding: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            position: relative;
+            margin-bottom: 2px;
+        }
+
+        /* PANEL IZQUIERDO: PERSONAJE Y BURBUJA */
+        .left-panel {
+            width: 28%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px dashed #334155;
+            border-radius: 10px;
+            padding: 10px;
+            position: relative;
+        }
+
+        .character-box {
+            width: 100%;
+            height: 180px;
+            background: #0b0f19;
+            border: 1px solid #00bfff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: visible;
+        }
+
+        .avatar-pixel {
+            width: 65px;
+            height: 85px;
+            background-image: url("../img/Imagen_2D.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+
+        /* BURBUJA DE DIÁLOGO */
+        .dialog-bubble {
+            position: absolute;
+            top: 10px;
+            left: 8px;
+            right: 8px;
+            background: #1e293b;
+            border: 2px solid #00bfff;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 15px;
+            color: #bae6fd;
+            font-weight: bold;
+            box-shadow: 0 0 12px rgba(0, 191, 255, 0.3);
+            z-index: 20;
+            text-align: center;
+        }
+
+        .dialog-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 7px 7px 0 7px;
+            border-style: solid;
+            border-color: #00bfff transparent transparent transparent;
+        }
+
+        /* PANEL DERECHO: TICKET E INCIDENTES */
+        .pc-board {
+            width: 70%;
+            background: #111827;
+            border: 2px solid #1e293b;
+            border-radius: 10px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+        }
+
+        .board-header {
+            font-size: 18px;
+            color: #00bfff;
+            text-align: center;
+            letter-spacing: 1px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        /* ANIMACIÓN DE PULSO PARA EL ENCABEZADO */
+        .board-header.pulse-anim {
+            animation: pulseHeader 0.4s ease;
+        }
+
+        @keyframes pulseHeader {
+            0% { transform: scale(1); color: #00bfff; text-shadow: 0 0 0px rgba(0,191,255,0); }
+            50% { transform: scale(1.12); color: #00ff88; text-shadow: 0 0 15px rgba(0,255,136,0.8); }
+            100% { transform: scale(1); color: #00bfff; text-shadow: 0 0 0px rgba(0,191,255,0); }
+        }
+
+        /* EFECTO DE DIFUMINADO (FADE) AJUSTADO A 1.5 SEGUNDOS */
+        .fade-content {
+            animation: fadeInOut 1.5s ease;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(8px); filter: blur(6px); }
+            50% { opacity: 0.5; filter: blur(3px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        /* CAJA DE TEXTO AMPLIADA CON SCROLL */
+        .ticket-box {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 17px;
+            color: #e2e8f0;
+            line-height: 1.5;
+            max-height: 30vh;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        .ticket-title {
+            color: #38bdf8;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 19px;
+        }
+
+        /* CONTENEDOR DE OPCIONES */
+        .solutions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex-grow: 1;
+            justify-content: flex-start;
+            overflow-y: auto;
+            max-height: 38vh;
+            padding-right: 2px;
+        }
+
+        /* BOTONES DE RESPUESTA AMPLIADOS */
+        .solution-btn {
+            width: 100%;
+            padding: 14px 16px;
+            background: #1e293b;
+            border: 2px solid #00bfff;
+            border-radius: 6px;
+            text-align: left;
+            color: white;
+            cursor: pointer;
+            font-size: 16.5px;
+            font-weight: bold;
+            line-height: 1.45;
+            transition: all 0.2s ease;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        .solution-btn:hover:not(:disabled) {
+            background: #00bfff;
+            color: black;
+            box-shadow: 0 0 8px #00bfff;
+            transform: scale(1.01);
+        }
+
+        /* --- MODALES (VICTORIA Y DERROTA) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 8, 15, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .victory-card {
+            background: #0f172a;
+            border: 2px solid #00ff88;
+            border-radius: 14px;
+            width: 430px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .victory-card {
+            transform: scale(1);
+        }
+
+        .defeat-card {
+            border-color: #ef4444;
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.3);
+        }
+
+        .defeat-title {
+            font-size: 23px;
+            color: #ef4444;
+            margin-bottom: 10px;
+        }
+
+        .character-motivation {
+            display: flex;
+            align-items: center;
+            background: #1e293b;
+            border: 1px solid #ef4444;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 14px 0;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .avatar-pixel-small {
+            width: 55px;
+            height: 70px;
+            background-image: url("../img/Imagen_2D.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            flex-shrink: 0;
+        }
+
+        .motivation-text {
+            font-size: 14.5px;
+            color: #cbd5e1;
+            line-height: 1.45;
+        }
+
+        .victory-title {
+            font-size: 23px;
+            color: #00ff88;
+            margin-bottom: 10px;
+        }
+
+        .victory-stars {
+            font-size: 28px;
+            margin: 10px 0;
+            letter-spacing: 3px;
+        }
+
+        .victory-details {
+            font-size: 16px;
+            color: #94a3b8;
+            margin-bottom: 18px;
+        }
+
+        .victory-menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-modal {
+            padding: 12px;
+            font-size: 15.5px;
+            font-weight: bold;
+            color: white;
+            background: #1e293b;
+            border: 2px solid #00bfff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-modal:hover {
+            background: #00bfff;
+            color: black;
+            box-shadow: 0 0 8px #00bfff;
+        }
+
+        .btn-modal.primary {
+            border-color: #00ff88;
+        }
+        .btn-modal.primary:hover {
+            background: #00ff88;
+            color: black;
+            box-shadow: 0 0 8px #00ff88;
+        }
+
+        .btn-modal-defeat {
+            border-color: #ef4444;
+        }
+
+        .btn-modal-defeat:hover {
+            background: #ef4444;
+            color: white;
+            box-shadow: 0 0 8px #ef4444;
+        }
+
+        .btn-volver {
+            padding: 10px 20px;
+            font-size: 15.5px;
+            color: white;
+            background: rgba(15, 15, 25, 0.75);
+            border: 2px solid #00bfff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-volver:hover {
+            background: #00bfff;
+            color: black;
+            box-shadow: 0 0 10px #00bfff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HUD DE ESTRELLAS SUPERIOR DERECHA -->
+    <div class="stars-hud">
+        <span class="label">Calificación:</span>
+        <div id="stars-display" class="stars-container">⭐⭐⭐⭐⭐⭐</div>
+    </div>
+
+    <header>
+        <h1>Nivel 2: Diagnóstico y Soporte de Redes</h1>
+        <p class="subtitulo">Resuelve incidencias críticas de conectividad aplicando troubleshooting estructurado</p>
+    </header>
+
+    <div class="game-container">
+        
+        <!-- PANEL IZQUIERDO: PERSONAJE Y BURBUJA -->
+        <div class="left-panel">
+            <div class="character-box" title="Especialista de Soporte TI">
+                <div id="status-msg" class="dialog-bubble">
+                    💬 ¡Listo para revisar los reportes de la red!
+                </div>
+                <div class="avatar-pixel" style="margin-top: 45px;"></div>
+            </div>
+        </div>
+
+        <!-- CONSOLE / INCIDENTES -->
+        <div class="pc-board">
+            <div class="board-header" id="incident-counter">INCIDENTE 1 DE 3</div>
+            
+            <div id="question-fade-wrapper" class="fade-content" style="display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
+                <div class="ticket-box">
+                    <div class="ticket-title" id="ticket-title">INC #104: Caída de Conexión en el área de Ventas</div>
+                    <p id="ticket-desc">Los usuarios reportan intermitencia total y pérdida de paquetes hacia el Gateway principal.</p>
+                </div>
+
+                <div class="solutions-grid" id="solutions-container">
+                    <!-- Opciones dinámicas -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <a href="Inicio.html" class="btn-volver">⬅ Volver a Selección de Niveles</a>
+
+    <!-- MODAL DE VICTORIA -->
+    <div id="victory-modal" class="modal-overlay">
+        <div class="victory-card">
+            <div class="victory-title">¡Redes Restauradas con Éxito!</div>
+            <div id="modal-stars" class="victory-stars">⭐⭐⭐⭐⭐⭐</div>
+            <div id="modal-errors" class="victory-details">Errores de diagnóstico: 0</div>
+            
+            <div class="victory-menu-buttons">
+                <button class="btn-modal primary" onclick="reiniciarNivel()">🔄 Reintentar Nivel</button>
+                <a href="Inicio.html" class="btn-modal">🗺️ Selección de Nivel</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE DERROTA CON MENSAJE MOTIVACIONAL DE REDES -->
+    <div id="defeat-modal" class="modal-overlay">
+        <div class="victory-card defeat-card">
+            <div class="defeat-title">¡Red Saturada / Incidencias sin Resolver!</div>
+            
+            <div class="character-motivation">
+                <div class="avatar-pixel-small"></div>
+                <div class="motivation-text">
+                    "¡Analiza bien las trazas y la capa de red! El troubleshooting requiere paciencia y lógica estructurada. Revisa cada síntoma de conectividad y vuelve a intentarlo, ¡tú puedes restablecer el enlace!"
+                </div>
+            </div>
+
+            <div class="victory-menu-buttons">
+                <button class="btn-modal btn-modal-defeat" onclick="reiniciarNivel()">🔄 Volver a Intentar Diagnóstico</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const incidentes = [
+            {
+                titulo: "INC #104: Caída de Conexión en el área de Ventas",
+                descripcion: "Los usuarios reportan intermitencia total y pérdida de paquetes hacia el Gateway principal. Se detecta que el enlace físico presenta fluctuaciones.",
+                opciones: [
+                    { texto: "A) Reiniciar el Switch de acceso del piso y revisar cables UTP dañados.", correcta: true },
+                    { texto: "B) Formatear todas las computadoras del departamento.", correcta: false },
+                    { texto: "C) Cambiar la contraseña del correo electrónico del personal.", correcta: false }
+                ]
+            },
+            {
+                titulo: "INC #105: Saturación de Ancho de Banda",
+                descripcion: "La red corporativa está extremadamente lenta. Al monitorear el tráfico, se observa un consumo masivo de descargas ajenas a la operación.",
+                opciones: [
+                    { texto: "A) Implementar reglas de QoS (Calidad de Servicio) en el router y bloquear tráfico no autorizado.", correcta: true },
+                    { texto: "B) Desconectar físicamente el cable principal de internet para siempre.", correcta: false },
+                    { texto: "C) Comprar una impresora nueva para la oficina.", correcta: false }
+                ]
+            },
+            {
+                titulo: "INC #106: Falla de Resolución de Nombres (DNS)",
+                descripcion: "Las estaciones de trabajo no pueden acceder a los servicios internos ni páginas web mediante nombres de dominio, aunque responden a IPs fijas.",
+                opciones: [
+                    { texto: "A) Verificar el estado del servicio DNS corporativo, limpiar caché IP (ipconfig /flushdns) y corregir servidores asignados.", correcta: true },
+                    { texto: "B) Cambiar los escritorios de lugar.", correcta: false },
+                    { texto: "C) Apagar el suministro eléctrico de todo el edificio.", correcta: false }
+                ]
+            }
+        ];
+
+        let indiceActual = 0;
+        let errores = 0;
+        let estrellasRestantes = 6;
+        let juegoTerminado = false;
+
+        const incidentCounter = document.getElementById("incident-counter");
+        const ticketTitle = document.getElementById("ticket-title");
+        const ticketDesc = document.getElementById("ticket-desc");
+        const solutionsContainer = document.getElementById("solutions-container");
+        const statusMsg = document.getElementById("status-msg");
+        const starsDisplay = document.getElementById("stars-display");
+        const victoryModal = document.getElementById("victory-modal");
+        const defeatModal = document.getElementById("defeat-modal");
+        const modalStars = document.getElementById("modal-stars");
+        const modalErrors = document.getElementById("modal-errors");
+        const questionFadeWrapper = document.getElementById("question-fade-wrapper");
+
+        function actualizarEstrellasHUD() {
+            let htmlStars = "";
+            let estrellasOscuras = 6 - estrellasRestantes;
+
+            for (let i = 0; i < estrellasRestantes; i++) {
+                htmlStars += "⭐";
+            }
+            for (let i = 0; i < estrellasOscuras; i++) {
+                htmlStars += "🌑";
+            }
+
+            starsDisplay.textContent = htmlStars;
+        }
+
+        function cargarIncidente() {
+            if (juegoTerminado) return;
+
+            // Animación de pulso en el contador
+            incidentCounter.classList.remove("pulse-anim");
+            void incidentCounter.offsetWidth; 
+            incidentCounter.classList.add("pulse-anim");
+
+            // Aplicar efecto de difuminado (fade) con retardo de 1.5s
+            questionFadeWrapper.classList.remove("fade-content");
+            void questionFadeWrapper.offsetWidth;
+            questionFadeWrapper.classList.add("fade-content");
+
+            const inc = incidentes[indiceActual];
+            incidentCounter.textContent = `INCIDENTE ${indiceActual + 1} DE ${incidentes.length}`;
+            ticketTitle.textContent = inc.titulo;
+            ticketDesc.textContent = inc.descripcion;
+
+            solutionsContainer.innerHTML = "";
+
+            const opcionesMezcladas = [...inc.opciones].sort(() => Math.random() - 0.5);
+
+            opcionesMezcladas.forEach((opcion) => {
+                const btn = document.createElement("button");
+                btn.className = "solution-btn";
+                btn.textContent = opcion.texto;
+
+                btn.onclick = () => {
+                    if (juegoTerminado) return;
+
+                    if (opcion.correcta) {
+                        statusMsg.textContent = "💬 ¡Excelente diagnóstico! Incidente resuelto.";
+                        statusMsg.style.borderColor = "#00ff88";
+                        statusMsg.style.color = "#00ff88";
+                        
+                        indiceActual++;
+                        if (indiceActual < incidentes.length) {
+                            setTimeout(() => {
+                                if (juegoTerminado) return;
+                                statusMsg.textContent = "💬 ¡Analiza el siguiente reporte de red!";
+                                statusMsg.style.borderColor = "#00bfff";
+                                statusMsg.style.color = "#bae6fd";
+                                cargarIncidente();
+                            }, 1500); // Retardo de 1.5 segundos antes de cargar el siguiente
+                        } else {
+                            juegoTerminado = true;
+                            setTimeout(mostrarVictoria, 800);
+                        }
+                    } else {
+                        errores++;
+                        if (estrellasRestantes > 0) {
+                            estrellasRestantes -= 1;
+                            actualizarEstrellasHUD();
+                        }
+
+                        if (estrellasRestantes === 0) {
+                            juegoTerminado = true;
+                            statusMsg.textContent = "💬 ¡Red colapsada por errores!";
+                            statusMsg.style.borderColor = "#ef4444";
+                            statusMsg.style.color = "#f87171";
+                            setTimeout(mostrarDerrota, 800);
+                        } else {
+                            statusMsg.textContent = "💬 ¡Falla de diagnóstico! Revisa el procedimiento.";
+                            statusMsg.style.borderColor = "#ef4444";
+                            statusMsg.style.color = "#f87171";
+                        }
+                    }
+                };
+
+                solutionsContainer.appendChild(btn);
+            });
+        }
+
+        function mostrarVictoria() {
+            victoryModal.classList.add("active");
+            modalErrors.textContent = `Errores de diagnóstico: ${errores}`;
+            modalStars.textContent = starsDisplay.textContent;
+        }
+
+        function mostrarDerrota() {
+            defeatModal.classList.add("active");
+        }
+
+        function reiniciarNivel() {
+            indiceActual = 0;
+            errores = 0;
+            estrellasRestantes = 6;
+            juegoTerminado = false;
+            actualizarEstrellasHUD();
+            victoryModal.classList.remove("active");
+            defeatModal.classList.remove("active");
+            statusMsg.textContent = "💬 ¡Listo para revisar los reportes de la red!";
+            statusMsg.style.borderColor = "#00bfff";
+            statusMsg.style.color = "#bae6fd";
+            cargarIncidente();
+        }
+
+        window.onload = () => {
+            actualizarEstrellasHUD();
+            cargarIncidente();
+        };
+    </script>
+</body>
+</html>
