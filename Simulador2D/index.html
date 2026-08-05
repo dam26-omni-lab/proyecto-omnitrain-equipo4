@@ -2,30 +2,335 @@
 <html lang="es">
 
 <head>
-
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>NEXUS DYNAMIC | Simulador 2D</title>
 
     <!-- Bootstrap Local -->
-    <!-- Usamos ../ para salir de la carpeta Simulador2D y entrar a css -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
-    
     <link rel="stylesheet" href="../css/style.css">
 
-</head>
+    <style>
+        /* Base y Variables Visuales */
+        :root {
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
 
+        body {
+            background-color: #0b0f19;
+            color: #f1f5f9;
+        }
+
+        .user-avatar {
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+        }
+
+        /* Topbar & Badge de Colaborador (Azul) */
+        .topbar {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .role-badge-blue {
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.25), rgba(56, 189, 248, 0.15));
+            border: 1px solid rgba(56, 189, 248, 0.5);
+            color: #38bdf8;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 30px;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        /* Tarjeta Principal (Hero) */
+        .welcome-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-badge {
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px var(--primary-glow);
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* Barras de Progreso Futuristas */
+        .progress {
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+            box-shadow: 0 0 12px rgba(192, 132, 252, 0.6);
+            border-radius: 20px;
+        }
+
+        /* Paneles Laterales Informativos */
+        .panel-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .panel-card-blue:hover {
+            border-color: rgba(56, 189, 248, 0.5);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+            transform: translateX(5px);
+        }
+
+        .panel-card-amber:hover {
+            border-color: rgba(245, 158, 11, 0.5);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+            transform: translateX(5px);
+        }
+
+        .panel-card-rose:hover {
+            border-color: rgba(244, 63, 94, 0.5);
+            box-shadow: 0 0 15px rgba(244, 63, 94, 0.2);
+            transform: translateX(5px);
+        }
+
+        .panel-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ESTILOS ÚNICOS POR NIVEL */
+        .module-card {
+            border-radius: 20px;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        /* DISEÑO DE ICONOS SVG INCUSTADOS */
+        .module-icon-box {
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .module-icon-box svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        /* Nivel 1 Icon Box */
+        .icon-box-lvl1 {
+            background: rgba(0, 189, 242, 0.18);
+            border: 1px solid rgba(0, 189, 242, 0.5);
+            box-shadow: 0 0 18px rgba(0, 189, 242, 0.3);
+        }
+        .icon-box-lvl1 svg {
+            fill: #00bdf2;
+            filter: drop-shadow(0 0 6px rgba(0, 189, 242, 0.9));
+        }
+
+        /* Nivel 2 Icon Box */
+        .icon-box-lvl2 {
+            background: rgba(255, 183, 3, 0.18);
+            border: 1px solid rgba(255, 183, 3, 0.5);
+            box-shadow: 0 0 18px rgba(255, 183, 3, 0.3);
+        }
+        .icon-box-lvl2 svg {
+            fill: #ffb703;
+            filter: drop-shadow(0 0 6px rgba(255, 183, 3, 0.9));
+        }
+
+        /* Nivel 3 Icon Box */
+        .icon-box-lvl3 {
+            background: rgba(244, 63, 94, 0.18);
+            border: 1px solid rgba(244, 63, 94, 0.5);
+            box-shadow: 0 0 18px rgba(244, 63, 94, 0.3);
+        }
+        .icon-box-lvl3 svg {
+            fill: #f43f5e;
+            filter: drop-shadow(0 0 6px rgba(244, 63, 94, 0.9));
+        }
+
+        /* BADGES DE PORCENTAJE (ÓVALOS) */
+        .pct-pill {
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 55px;
+        }
+        
+        .pct-pill-lvl1 {
+            background-color: #00bdf2;
+            box-shadow: 0 0 12px rgba(0, 189, 242, 0.5);
+        }
+
+        .pct-pill-lvl2 {
+            background-color: #ffb703;
+            box-shadow: 0 0 12px rgba(255, 183, 3, 0.5);
+        }
+
+        .pct-pill-lvl3 {
+            background-color: #f43f5e;
+            box-shadow: 0 0 12px rgba(244, 63, 94, 0.5);
+        }
+
+        /* TARJETAS DE NIVELES */
+        .card-level-1 {
+            background: linear-gradient(180deg, rgba(14, 116, 144, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+        .card-level-1:hover {
+            transform: translateY(-8px);
+            border-color: #38bdf8;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.3);
+        }
+        .btn-level-1 {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            border: none;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+        }
+        .btn-level-1:hover {
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.6);
+            color: #fff;
+        }
+
+        .card-level-2 {
+            background: linear-gradient(180deg, rgba(180, 83, 9, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+        .card-level-2:hover {
+            transform: translateY(-8px);
+            border-color: #f59e0b;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(245, 158, 11, 0.35);
+        }
+        .btn-level-2 {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            border: none;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.4);
+        }
+        .btn-level-2:hover {
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.6);
+            color: #000;
+        }
+
+        .card-level-3 {
+            background: linear-gradient(180deg, rgba(190, 18, 60, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+        .card-level-3:hover {
+            transform: translateY(-8px);
+            border-color: #f43f5e;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(244, 63, 94, 0.35);
+        }
+        .btn-level-3 {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            border: none;
+            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
+        }
+        .btn-level-3:hover {
+            background: linear-gradient(135deg, #fb7185, #e11d48);
+            box-shadow: 0 6px 20px rgba(251, 113, 133, 0.6);
+            color: #fff;
+        }
+
+        .btn-outline-primary {
+            border: 1px solid rgba(99, 102, 241, 0.5);
+            color: #a5b4fc;
+            border-radius: 12px;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: #6366f1;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .score-pill {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Estilos de Estrellas (1 a 6) */
+        .stars-container {
+            display: flex;
+            gap: 5px;
+            font-size: 1.15rem;
+        }
+        
+        .stars-container .bi-star-fill.active-star-1 {
+            color: #00bdf2;
+            filter: drop-shadow(0 0 5px rgba(0, 189, 242, 0.8));
+        }
+
+        .stars-container .bi-star-fill.active-star-2 {
+            color: #ffb703;
+            filter: drop-shadow(0 0 5px rgba(255, 183, 3, 0.8));
+        }
+
+        .stars-container .bi-star-fill.active-star-3 {
+            color: #f43f5e;
+            filter: drop-shadow(0 0 5px rgba(244, 63, 94, 0.8));
+        }
+
+        .stars-container .bi-star {
+            color: rgba(255, 255, 255, 0.18);
+        }
+    </style>
+</head>
 
 <body>
 
     <aside class="sidebar">
-
         <div class="sidebar-logo">
             <a href="../index.html" class="logo-link">
-                <img src="../img/logo.jpg" alt="Logo">
+                <img src="../img/logo.jpg" alt="Logo NEXUS" width="90" height="90" class="logo mb-3 img-fluid" fetchpriority="high">
             </a>
             <div>
                 <h4>NEXUS</h4>
@@ -33,319 +338,254 @@
             </div>
         </div>
 
-        <button class="menu-toggle" id="menuToggle">
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
             <i class="bi bi-list"></i>
         </button>
 
         <ul class="sidebar-menu" id="sidebarMenu">
-
             <li>
-                <a href="/dashboard.html">
+                <a href="../dashboard.html">
                     <i class="bi bi-grid-1x2-fill"></i>
                     Dashboard
                 </a>
             </li>
-
             <li class="active">
-                <a href="Simulador2D/index.html">
+                <a href="index.html">
                     <i class="bi bi-display-fill"></i>
                     Simulador 2D
                 </a>
             </li>
-
             <li>
-                <a href="/Simulador3D/index.html">
+                <a href="../Simulador3D/index.html">
                     <i class="bi bi-badge-vr-fill"></i>
                     Simulador 3D
                 </a>
             </li>
-
             <li>
                 <a href="#">
                     <i class="bi bi-shield-lock-fill"></i>
                     Cybersecurity
                 </a>
             </li>
-
             <li>
                 <a href="#">
                     <i class="bi bi-bar-chart-fill"></i>
                     KPIs
                 </a>
             </li>
-
             <li>
                 <a href="#">
                     <i class="bi bi-patch-question-fill"></i>
                     Evaluaciones
                 </a>
             </li>
-
         </ul>
-
     </aside>
 
     <main class="main-content">
 
-        <div class="topbar">
-
-            <h2>
-                <i class="bi bi-display-fill"></i>
+        <!-- BARRA SUPERIOR -->
+        <div class="topbar d-flex justify-content-between align-items-center">
+            <h2 class="m-0 fw-bold d-flex align-items-center gap-2">
+                <i class="bi bi-display-fill text-primary"></i>
                 Simulador 2D
             </h2>
 
-            <div class="topbar-user">
-
-                <div class="xp-box">
-                    XP: 4,820
+            <div class="topbar-user d-flex align-items-center gap-3">
+                <div class="role-badge-blue">
+                    <i class="bi bi-person-badge-fill me-1"></i> Colaborador
                 </div>
-
-                <img src="../img/avatar.jpg"
-                    class="user-avatar"
-                    alt="Usuario">
-
+                <img src="../img/Perfil_colab.jpg" class="user-avatar" width="45" height="45" alt="Usuario">
             </div>
-
         </div>
 
-        <section class="welcome-card">
-
-            <div class="row align-items-center">
-
+        <!-- TARJETA PRINCIPAL (HERO) -->
+        <section class="welcome-card mb-4">
+            <div class="row align-items-center g-4">
                 <div class="col-lg-8">
-
                     <span class="welcome-badge">
-                        MÓDULO INTERACTIVO
+                        <i class="bi bi-cpu-fill me-1"></i> Módulo Interactivo
                     </span>
-
-                    <h1>
-                        Simulación Empresarial 2D
-                    </h1>
-
-                    <p>
-                        Practica la toma de decisionesempresariales mediante
-                        escenarios interactivos. Gestiona recursos, responde
-                        incidentes operativos y mejora tus habilidades de análisis.
+                    <h1 class="display-5 fw-bold mb-3">Simulación Empresarial 2D</h1>
+                    <p class="text-secondary fs-6 mb-4">
+                        Practica la toma de decisiones empresariales mediante escenarios interactivos. 
+                        Gestiona recursos, responde incidentes operativos y supera los 3 niveles de dificultad.
                     </p>
 
-                    <div class="progress-section">
-
-                        <div class="progress-header">
-                            <span>Progreso del Curso</span>
-                            <strong>82%</strong>
+                    <div class="progress-section mb-4">
+                        <div class="progress-header d-flex justify-content-between mb-2">
+                            <span class="text-light fw-semibold">Progreso General</span>
+                            <strong class="text-info">82%</strong>
                         </div>
-
                         <div class="progress">
-                            <div class="progress-bar"
-                                style="width:82%;"></div>
+                            <div class="progress-bar" style="width: 82%;"></div>
                         </div>
-
                     </div>
 
-                    <div class="hero-buttons">
-
-                        <button class="btn btn-primary btn-lg">
-                            <a href="Prototipo.html">                    
-
-                            Iniciar Simulación 
-                        
+                    <div class="hero-buttons d-flex flex-wrap gap-3">
+                        <a href="Prototipo.html" class="btn btn-primary btn-lg px-4" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); border:none;">
+                            <i class="bi bi-play-fill me-1"></i> Iniciar Simulación
                         </a>
-
-                        </button>
-
-                        <a href="../index.html"
-                            class="btn btn-outline-primary btn-lg">
-
+                        <a href="../index.html" class="btn btn-outline-primary btn-lg px-4">
                             Volver al Dashboard
-
                         </a>
-
                     </div>
-
                 </div>
 
+                <!-- PANELES LATERALES -->
                 <div class="col-lg-4">
-
-                    <div class="training-panel">
-
-                        <div class="panel-card">
-
-                            <div class="panel-icon">
-                                <i class="bi bi-diagram-3-fill"></i>
+                    <div class="training-panel d-flex flex-column gap-3">
+                        
+                        <div class="panel-card panel-card-blue d-flex align-items-center gap-3 p-3">
+                            <div class="panel-icon" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3);">
+                                <i class="bi bi-diagram-3-fill fs-4 text-info"></i>
                             </div>
-
                             <div>
-                                <h5>Escenarios</h5>
-                                <p>12 disponibles</p>
+                                <h6 class="mb-0 fw-bold text-light">Niveles Activos</h6>
+                                <small class="text-muted">3 Niveles en total</small>
                             </div>
-
                         </div>
 
-                        <div class="panel-card">
-
-                            <div class="panel-icon">
-                                <i class="bi bi-clock-history"></i>
+                        <div class="panel-card panel-card-amber d-flex align-items-center gap-3 p-3">
+                            <div class="panel-icon" style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3);">
+                                <i class="bi bi-clock-history fs-4 text-warning"></i>
                             </div>
-
                             <div>
-                                <h5>Tiempo Promedio</h5>
-                                <p>35 minutos</p>
+                                <h6 class="mb-0 fw-bold text-light">Tiempo Promedio</h6>
+                                <small class="text-muted">35 minutos</small>
                             </div>
-
                         </div>
 
-                        <div class="panel-card">
-
-                            <div class="panel-icon">
-                                <i class="bi bi-trophy-fill"></i>
+                        <div class="panel-card panel-card-rose d-flex align-items-center gap-3 p-3">
+                            <div class="panel-icon" style="background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.3);">
+                                <i class="bi bi-trophy-fill fs-4" style="color: #f43f5e;"></i>
                             </div>
-
                             <div>
-                                <h5>Mejor Puntaje</h5>
-                                <p>95 / 100</p>
+                                <h6 class="mb-0 fw-bold text-light">Récord Global</h6>
+                                <small class="text-muted"><span id="global-high-score" class="fw-bold" style="color: #f43f5e;">95</span> / 100 pts</small>
                             </div>
-
                         </div>
 
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-        <section class="modules-grid">
-
+        <!-- SECCIÓN DE LOS 3 NIVELES -->
+        <section class="modules-grid mb-4">
             <div class="row g-4">
 
-                <div class="col-lg-4">
-
-                    <div class="module-card">
-
-                        <div class="module-top">
-
-                            <div class="module-icon">
-                                <i class="bi bi-building"></i>
+                <!-- Nivel 1 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="module-card card-level-1 h-100 d-flex flex-column justify-content-between p-4">
+                        <div>
+                            <div class="module-top d-flex justify-content-between align-items-center mb-3">
+                                <!-- ICONO SVG DIRECTO: GESTIÓN (Edificio/Engranaje) -->
+                                <div class="module-icon-box icon-box-lvl1">
+                                    <svg viewBox="0 0 16 16">
+                                        <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm9.25 1a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5z"/>
+                                    </svg>
+                                </div>
+                                <span class="pct-pill pct-pill-lvl1" id="badge-pct-1">
+                                    85%
+                                </span>
+                            </div>
+                            <h4 class="fw-bold text-light mb-2">Gestión Básica</h4>
+                            <p class="text-secondary small mb-3">Administra recursos iniciales, personal operativo y flujo continuo de trabajo.</p>
+                        </div>
+                        <div>
+                            <div class="mb-3 d-flex flex-column gap-1">
+                                <small class="text-muted">Calificación:</small>
+                                <div class="stars-container" id="stars-lvl1"></div>
                             </div>
 
-                            <span class="module-status">
-                                BÁSICO
-                            </span>
-
+                            <div class="score-pill d-flex justify-content-between align-items-center mb-3">
+                                <small class="text-muted"><i class="bi bi-award-fill text-info me-1"></i> Mejor Puntaje:</small>
+                                <strong class="text-info" id="score-lvl1">85 / 100</strong>
+                            </div>
+                            <button class="btn btn-primary btn-level-1 w-100 py-2 rounded-3 fw-bold" onclick="iniciarNivel(1)">
+                                <i class="bi bi-controller me-1"></i> Jugar Nivel 1
+                            </button>
                         </div>
-
-                        <h4>Gestión Empresarial</h4>
-
-                        <p>
-                            Administra recursos, personal y operaciones diarias.
-                        </p>
-
-                        <button class="btn btn-primary w-100">
-                            Ingresar
-                        </button>
-
                     </div>
-
                 </div>
 
-                <div class="col-lg-4">
-
-                    <div class="module-card featured-module">
-
-                        <div class="module-top">
-
-                            <div class="module-icon">
-                                <i class="bi bi-shield-fill-check"></i>
+                <!-- Nivel 2 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="module-card card-level-2 h-100 d-flex flex-column justify-content-between p-4">
+                        <div>
+                            <div class="module-top d-flex justify-content-between align-items-center mb-3">
+                                <!-- ICONO SVG DIRECTO: ESCUDO / ALERTAS -->
+                                <div class="module-icon-box icon-box-lvl2">
+                                    <svg viewBox="0 0 16 16">
+                                        <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM8.005 5.5a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm0 5a.625.625 0 1 1 0-1.25.625.625 0 0 1 0 1.25z"/>
+                                    </svg>
+                                </div>
+                                <span class="pct-pill pct-pill-lvl2" id="badge-pct-2">
+                                    95%
+                                </span>
+                            </div>
+                            <h4 class="fw-bold text-light mb-2">Respuesta e Incidentes</h4>
+                            <p class="text-secondary small mb-3">Enfréntate a crisis operativas, fallas del sistema y decisiones críticas bajo tiempo límite.</p>
+                        </div>
+                        <div>
+                            <div class="mb-3 d-flex flex-column gap-1">
+                                <small class="text-muted">Calificación:</small>
+                                <div class="stars-container" id="stars-lvl2"></div>
                             </div>
 
-                            <span class="module-status live">
-                                POPULAR
-                            </span>
-
+                            <div class="score-pill d-flex justify-content-between align-items-center mb-3">
+                                <small class="text-muted"><i class="bi bi-award-fill text-warning me-1"></i> Mejor Puntaje:</small>
+                                <strong class="text-warning" id="score-lvl2">95 / 100</strong>
+                            </div>
+                            <button class="btn btn-primary btn-level-2 w-100 py-2 rounded-3 fw-bold" onclick="iniciarNivel(2)">
+                                <i class="bi bi-controller me-1"></i> Jugar Nivel 2
+                            </button>
                         </div>
-
-                        <h4>Respuesta a Incidentes</h4>
-
-                        <p>
-                            Simula situaciones críticas y toma decisiones rápidas.
-                        </p>
-
-                        <button class="btn btn-primary w-100">
-                            Iniciar
-                        </button>
-
                     </div>
-
                 </div>
 
-                <div class="col-lg-4">
-
-                    <div class="module-card">
-
-                        <div class="module-top">
-
-                            <div class="module-icon">
-                                <i class="bi bi-graph-up-arrow"></i>
+                <!-- Nivel 3 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="module-card card-level-3 h-100 d-flex flex-column justify-content-between p-4">
+                        <div>
+                            <div class="module-top d-flex justify-content-between align-items-center mb-3">
+                                <!-- ICONO SVG DIRECTO: GRÁFICA / ESTRATEGIA (Igual al de tu imagen previa) -->
+                                <div class="module-icon-box icon-box-lvl3">
+                                    <svg viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M7.05 3.691c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L.98 9.483c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"/>
+                                    </svg>
+                                </div>
+                                <span class="pct-pill pct-pill-lvl3" id="badge-pct-3">
+                                    70%
+                                </span>
+                            </div>
+                            <h4 class="fw-bold text-light mb-2">Estrategia Avanzada</h4>
+                            <p class="text-secondary small mb-3">Define metas corporativas globales, analiza indicadores avanzados y optimiza ganancias.</p>
+                        </div>
+                        <div>
+                            <div class="mb-3 d-flex flex-column gap-1">
+                                <small class="text-muted">Calificación:</small>
+                                <div class="stars-container" id="stars-lvl3"></div>
                             </div>
 
-                            <span class="module-status">
-                                AVANZADO
-                            </span>
-
+                            <div class="score-pill d-flex justify-content-between align-items-center mb-3">
+                                <small class="text-muted"><i class="bi bi-award-fill me-1" style="color: #f43f5e;"></i> Mejor Puntaje:</small>
+                                <strong style="color: #f43f5e;" id="score-lvl3">70 / 100</strong>
+                            </div>
+                            <button class="btn btn-primary btn-level-3 w-100 py-2 rounded-3 fw-bold" onclick="iniciarNivel(3)">
+                                <i class="bi bi-controller me-1"></i> Jugar Nivel 3
+                            </button>
                         </div>
-
-                        <h4>Planeación Estratégica</h4>
-
-                        <p>
-                            Define objetivos, indicadores y crecimiento organizacional.
-                        </p>
-
-                        <button class="btn btn-primary w-100">
-                            Abrir
-                        </button>
-
                     </div>
-
                 </div>
 
             </div>
-
-        </section>
-
-        <section class="modules-grid">
-
-            <div class="module-card">
-
-                <h3 class="mb-4">
-
-                    <i class="bi bi-controller"></i>
-                    Área de Simulación
-<div id="game-container"></div>
-                </h3>
-
-                <div style="
-                    background:#0f172a;
-                    border:1px solid rgba(255,255,255,.08);
-                    border-radius:20px;
-                    height:500px;
-                    display:flex;
-                    align-items:center;
-                    justify-content:center;
-                    font-size:1.2rem;
-                    color:#94a3b8;
-                ">
-
-                    Aquí se cargará el simulador 2D
-
-                </div>
-
-            </div>
-
         </section>
 
     </main>
 
+    <!-- SCRIPTS -->
     <script src="../js/bootstrap.bundle.min.js"></script>
 
     <script>
@@ -355,10 +595,7 @@
 
             if (menuToggle && sidebarMenu) {
                 menuToggle.addEventListener("click", function () {
-                    // Alterna la clase active para mostrar/ocultar el menú lateral
                     sidebarMenu.classList.toggle("active");
-                    
-                    // Cambia dinámicamente el icono de la hamburguesa (Líneas / Equis)
                     const icon = menuToggle.querySelector("i");
                     if (sidebarMenu.classList.contains("active")) {
                         icon.classList.replace("bi-list", "bi-x-lg");
@@ -367,15 +604,60 @@
                     }
                 });
             }
+
+            cargarPuntajes();
         });
+
+        const scores = {
+            nivel1: parseInt(localStorage.getItem("score_lvl1")) || 85,
+            nivel2: parseInt(localStorage.getItem("score_lvl2")) || 95,
+            nivel3: parseInt(localStorage.getItem("score_lvl3")) || 70
+        };
+
+        function cargarPuntajes() {
+            document.getElementById("score-lvl1").innerText = scores.nivel1 + " / 100";
+            document.getElementById("score-lvl2").innerText = scores.nivel2 + " / 100";
+            document.getElementById("score-lvl3").innerText = scores.nivel3 + " / 100";
+            
+            document.getElementById("badge-pct-1").innerText = scores.nivel1 + "%";
+            document.getElementById("badge-pct-2").innerText = scores.nivel2 + "%";
+            document.getElementById("badge-pct-3").innerText = scores.nivel3 + "%";
+
+            renderizarEstrellas("stars-lvl1", scores.nivel1, 1);
+            renderizarEstrellas("stars-lvl2", scores.nivel2, 2);
+            renderizarEstrellas("stars-lvl3", scores.nivel3, 3);
+
+            actualizarPuntajeMaximo();
+        }
+
+        function renderizarEstrellas(containerId, score, levelNumber) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            let cantEstrellas = Math.round((score / 100) * 6);
+            if (cantEstrellas < 1) cantEstrellas = 1;
+            if (cantEstrellas > 6) cantEstrellas = 6;
+
+            let htmlStars = "";
+            for (let i = 1; i <= 6; i++) {
+                if (i <= cantEstrellas) {
+                    htmlStars += `<i class="bi bi-star-fill active-star-${levelNumber}"></i>`;
+                } else {
+                    htmlStars += `<i class="bi bi-star"></i>`;
+                }
+            }
+            container.innerHTML = htmlStars;
+        }
+
+        function actualizarPuntajeMaximo() {
+            const maxScore = Math.max(scores.nivel1, scores.nivel2, scores.nivel3);
+            document.getElementById("global-high-score").innerText = maxScore;
+        }
+
+        function iniciarNivel(numNivel) {
+            console.log("Iniciando Nivel: " + numNivel);
+        }
     </script>
 
-    
-
-<script src="../js/phaser.min.js"></script>
-<script type="module" src="js/logout.js"></script>
-
-
 </body>
-
 </html>
