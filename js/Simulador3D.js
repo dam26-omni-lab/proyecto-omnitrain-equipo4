@@ -1,6 +1,7 @@
 import * as THREE from '../build/three.module.js';
 import { GLTFLoader } from '../examples/jsm/loaders/GLTFLoader.js';
 
+
 const {
     Scene,
     PerspectiveCamera,
@@ -224,3 +225,41 @@ function onWindowResize() {
     
     renderer.setSize(width, height); 
 }
+
+
+// --- CARGAR LAPTOP GLB ---
+    const rutaLaptop = '../model/sci_fi_laptop_alternative_90s.glb';
+    
+    loader.load(
+        rutaLaptop, 
+        function(gltf) {
+            console.log("¡LAPTOP CARGADA CORRECTAMENTE!");
+            const laptop = gltf.scene;
+            
+            // Configurar sombras y materiales para que coincidan con la oficina
+            laptop.traverse(function(node) {
+                if (node.isMesh) {
+                    node.castShadow = true;
+                    node.receiveShadow = true;
+                }
+            });
+
+            // --- AJUSTA ESTOS VALORES SEGÚN TU ESCENA ---
+            // 1. Escala: Si se ve gigante o microscópica, cambia estos números
+            laptop.scale.set(1, 1, 1); 
+            
+            // 2. Posición: Coordenadas X, Y, Z para ubicarla sobre un escritorio
+            laptop.position.set(0, 0, 0); 
+            
+            // 3. Rotación (Opcional): Si necesitas girarla
+            // laptop.rotation.y = Math.PI / 4; // Gira 45 grados
+
+            scene.add(laptop);
+        }, 
+        function(xhr) { 
+            console.log("Cargando laptop: " + Math.round(xhr.loaded / xhr.total * 100) + "%"); 
+        }, 
+        function(error) { 
+            console.error("Error al cargar la laptop:", error);
+        }
+    );
