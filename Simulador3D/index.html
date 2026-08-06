@@ -1,48 +1,189 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>NEXUS | Simulador 3D (VR)</title>
 
+    <!-- Bootstrap Local -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/style.css">
+
     <style>
-        .render-viewport {
-            width: 100%;
-            height: 500px;
-            background: #020617;
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 32px;
-            margin-top: 30px;
+        /* Base y Variables Visuales */
+        :root {
+            --primary-glow: rgba(139, 92, 246, 0.4);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --purple-accent: #a855f7;
+            --cyan-accent: #06b6d4;
+        }
+
+        body {
+            background-color: #0b0f19;
+            color: #f1f5f9;
+        }
+
+        .user-avatar {
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #a855f7;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+        }
+
+        /* Topbar & Badges */
+        .topbar {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .role-badge-purple {
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.25), rgba(168, 85, 247, 0.15));
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            color: #c084fc;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 30px;
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.25);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        /* Tarjeta Principal (Hero) */
+        .welcome-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-badge {
+            background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px var(--primary-glow);
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* Paneles Laterales Informativos */
+        .panel-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .panel-card-purple:hover {
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+            transform: translateX(5px);
+        }
+
+        .panel-card-cyan:hover {
+            border-color: rgba(6, 182, 212, 0.5);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+            transform: translateX(5px);
+        }
+
+        .panel-card-emerald:hover {
+            border-color: rgba(16, 185, 129, 0.5);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+            transform: translateX(5px);
+        }
+
+        .panel-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 40px rgba(139, 92, 246, 0.1) inset;
         }
-        .render-viewport i {
-            font-size: 5rem;
-            color: rgba(6, 182, 212, 0.5);
-            animation: pulse 2s infinite;
+
+        /* Viewport Render 3D */
+        .render-viewport {
+            width: 100%;
+            height: 480px;
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 35px rgba(139, 92, 246, 0.15) inset, 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
         }
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.5; }
+
+        .render-viewport::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+
+        .render-icon-wrapper {
+            animation: pulse3d 2.5s infinite ease-in-out;
+            z-index: 2;
+        }
+
+        .render-icon-wrapper svg {
+            width: 90px;
+            height: 90px;
+            fill: #06b6d4;
+            filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.8));
+        }
+
+        @keyframes pulse3d {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 25px rgba(168, 85, 247, 0.9)); }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+
+        .btn-outline-primary {
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            color: #c084fc;
+            border-radius: 12px;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: #a855f7;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
         }
     </style>
 </head>
+
 <body>
 
     <aside class="sidebar">
-        
-        <!-- AQUÍ ESTÁ LA MODIFICACIÓN DEL LOGO -->
         <div class="sidebar-logo">
             <a href="../index.html" class="logo-link">
-                <!-- Imagen del logo (lado izquierdo) -->
-                <img src="../img/logo.jpeg" alt="Logo NEXUS">
+                <img src="../img/logo.jpg" alt="Logo NEXUS" width="90" height="90" class="logo mb-3 img-fluid">
             </a>
             <div>
                 <h4>NEXUS</h4>
@@ -50,7 +191,7 @@
             </div>
         </div>
 
-        <button class="menu-toggle" id="menuToggle">
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
             <i class="bi bi-list"></i>
         </button>
 
@@ -61,28 +202,24 @@
                     Dashboard
                 </a>
             </li>
-
             <li>
                 <a href="../Simulador2D/index.html">
                     <i class="bi bi-display-fill"></i>
                     Simulador 2D
                 </a>
             </li>
-
             <li class="active">
                 <a href="index.html">
                     <i class="bi bi-badge-vr-fill"></i>
                     Simulador 3D
                 </a>
             </li>
-
             <li>
                 <a href="#">
                     <i class="bi bi-shield-lock-fill"></i>
                     Cybersecurity
                 </a>
             </li>
-
             <li>
                 <a href="#">
                     <i class="bi bi-bar-chart-fill"></i>
@@ -90,44 +227,104 @@
                 </a>
             </li>
         </ul>
-
     </aside>
 
     <main class="main-content">
-        
-        <div class="topbar">
-            <div class="search-box">
-                <i class="bi bi-search"></i>
-                <input type="text" placeholder="Buscar servidores físicos, racks, protocolos...">
-            </div>
-            
-            <div class="topbar-user">
-                <div class="xp-box">
-                    Hardware VR: Conectado
+
+        <!-- BARRA SUPERIOR -->
+        <div class="topbar d-flex justify-content-between align-items-center">
+            <h2 class="m-0 fw-bold d-flex align-items-center gap-2">
+                <i class="bi bi-badge-vr-fill" style="color: #a855f7;"></i>
+                Simulador 3D (VR)
+            </h2>
+
+            <div class="topbar-user d-flex align-items-center gap-3">
+                <div class="role-badge-purple">
+                    <i class="bi bi-headset-vr me-1"></i> COLABORADOR
                 </div>
-                <img src="../img/avatar.jpg" class="user-avatar" alt="Usuario">
+                <img src="../img/Perfil_colab.jpg" class="user-avatar" width="45" height="45" alt="Usuario">
             </div>
         </div>
 
-        <section class="welcome-card featured-module">
-            <span class="welcome-badge live">SISTEMA VR LISTO</span>
-            <h1>Centro de Datos <br>Inmersivo</h1>
-            <p>Navega físicamente por los servidores de la instalación en primera persona (3D). Identifica vulnerabilidades de hardware, cableado defectuoso y accesos no autorizados en el rack principal.</p>
-            
-            <div class="hero-buttons">
-                <!-- BOTÓN QUE LLEVA A PROTOTIPO.HTML DE 3D -->
-                <a href="Prototipo.html" class="btn btn-primary btn-lg"><i class="bi bi-badge-vr"></i> Abrir Simulador 3D</a>
-                <button class="btn btn-outline-primary btn-lg">Configurar Gráficos</button>
+        <!-- TARJETA PRINCIPAL (HERO) -->
+        <section class="welcome-card mb-4">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <span class="welcome-badge">
+                        <i class="bi bi-box-seam-fill me-1"></i> Entorno Inmersivo
+                    </span>
+                    <h1 class="display-5 fw-bold mb-3">Centro de Datos Inmersivo</h1>
+                    <p class="text-secondary fs-6 mb-4">
+                        Navega físicamente por los servidores de la instalación en primera persona (3D). 
+                        Identifica vulnerabilidades de hardware, analiza cableado defectuoso y gestiona los accesos en el rack principal.
+                    </p>
+
+                    <div class="hero-buttons d-flex flex-wrap gap-3">
+                        <a href="Prototipo.html" class="btn btn-primary btn-lg px-4" style="background: linear-gradient(135deg, #7c3aed, #06b6d4); border:none;">
+                            <i class="bi bi-play-fill me-1"></i> Abrir Simulador 3D
+                        </a>
+                        <button class="btn btn-outline-primary btn-lg px-4">
+                            <i class="bi bi-gear-fill me-1"></i> Configurar Gráficos
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PANELES LATERALES -->
+                <div class="col-lg-4">
+                    <div class="training-panel d-flex flex-column gap-3">
+                        
+                        <div class="panel-card panel-card-purple d-flex align-items-center gap-3 p-3">
+                            <div class="panel-icon" style="background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.3);">
+                                <i class="bi bi-headset-vr fs-4" style="color: #a855f7;"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold text-light">Hardware VR</h6>
+                                <small class="text-muted">Conectado / Listo</small>
+                            </div>
+                        </div>
+
+                        <div class="panel-card panel-card-cyan d-flex align-items-center gap-3 p-3">
+                            <div class="panel-icon" style="background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3);">
+                                <i class="bi bi-cpu-fill fs-4 text-info"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold text-light">Render Engine</h6>
+                                <small class="text-muted">60 FPS (WebGL 2.0)</small>
+                            </div>
+                        </div>
+
+                        <div class="panel-card panel-card-emerald d-flex align-items-center gap-3 p-3">
+                            <div class="panel-icon" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3);">
+                                <i class="bi bi-wifi fs-4 text-success"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold text-light">Latencia Red</h6>
+                                <small class="text-muted">12 ms (Óptimo)</small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Contenedor ilustrativo del entorno 3D -->
-        <div class="render-viewport" id="canvas3d">
-            <i class="bi bi-box"></i>
-        </div>
+        <!-- VIEWPORT DE RENDERIZADO 3D -->
+        <section class="mb-4">
+            <div class="render-viewport" id="canvas3d">
+                <div class="render-icon-wrapper mb-3">
+                    <!-- SVG de un Cubo 3D / VR -->
+                    <svg viewBox="0 0 16 16">
+                        <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l8.304 3.322 8.304-3.322-6.268-2.387zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.761V6.838L1 4.239v7.923l6.5 2.6z"/>
+                    </svg>
+                </div>
+                <h5 class="fw-bold text-light mb-1">Entorno 3D Interactivo</h5>
+                <p class="text-secondary small m-0">Haz clic en "Abrir Simulador 3D" para renderizar la escena completa</p>
+            </div>
+        </section>
 
     </main>
 
+    <!-- SCRIPTS -->
     <script src="../js/bootstrap.bundle.min.js"></script>
 
     <script>
@@ -148,5 +345,6 @@
             }
         });
     </script>
+
 </body>
 </html>
