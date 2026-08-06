@@ -1,7 +1,6 @@
 import * as THREE from '../build/three.module.js';
 import { GLTFLoader } from '../examples/jsm/loaders/GLTFLoader.js';
 
-
 const {
     Scene,
     PerspectiveCamera,
@@ -16,11 +15,11 @@ const {
 // Variables globales
 let scene, renderer, perspectiveCamera;
 let ambientLight, directionalLight;
+let laptopMesh; 
 let width = window.innerWidth;
 let height = window.innerHeight;
 
 // --- CONFIGURACIÓN DE ALTURA DE LA VISTA ---
-// Ajusta este valor: entre más negativo, más baja estará la perspectiva.
 const cameraHeight = -0.18; 
 
 // --- VARIABLES PARA ROTACIÓN 360° ---
@@ -36,6 +35,13 @@ const keysPressed = {
     d: false
 };
 const moveSpeed = 0.07; 
+
+// --- ESTADOS DE INTERACCIÓN ---
+let cercaDeLaptop = false;
+let cercaDePuerta = false;
+
+// --- COORDENADAS DE LA PUERTA (Exactamente donde apareces al iniciar) ---
+let puertaPos = new Vector3(-2.89, -0.18, -4.5); 
 
 init();
 renderer.setAnimationLoop(animate);
@@ -57,8 +63,9 @@ function init() {
     document.body.appendChild(renderer.domElement); 
 
     perspectiveCamera = new PerspectiveCamera(60, width / height, 0.1, 1000);
-    // Establecemos la altura inicial corregida
-    perspectiveCamera.position.set(0, cameraHeight, 2); 
+    
+    // --- AQUÍ APARECES: Cerca de la puerta al iniciar ---
+    perspectiveCamera.position.set(-2.89, cameraHeight, -4.5); 
     
     // Iluminación
     ambientLight = new AmbientLight(0xffffff, 2.0); 
@@ -69,10 +76,10 @@ function init() {
     directionalLight.castShadow = true;
     scene.add(directionalLight);
 
-    // Carga del modelo nuevo
-    const rutaModelo = '../model/escenario.glb';
     const loader = new GLTFLoader();
 
+    // 1. Carga del escenario
+    const rutaModelo = '../model/escenario.glb';
     console.log("Intentando cargar el modelo desde la ruta:", rutaModelo);
 
     loader.load(
@@ -123,9 +130,6 @@ function init() {
             }
             
             scene.add(oficina);
-            
-            // Colocamos la cámara a la altura configurada
-            perspectiveCamera.position.set(-1.5, cameraHeight, 1.5);
         }, 
         function(xhr) { 
             console.log("Cargando oficina: " + Math.round(xhr.loaded / xhr.total * 100) + "%"); 
@@ -135,17 +139,52 @@ function init() {
         }
     );
 
-    // Clic derecho para arrastrar perspectiva
-    window.addEventListener('mousedown', (event) => {
-        if (event.button === 2) { 
-            isRightMouseDown = true;
+    // 2. Carga de la laptop
+    const rutaLaptop = '../model/sci_fi_laptop_alternative_90s.glb';
+    
+    loader.load(
+        rutaLaptop, 
+        function(gltf) {
+            console.log("¡LAPTOP CARGADA CORRECTAMENTE!");
+            laptopMesh = gltf.scene; 
+            
+            laptopMesh.traverse(function(node) {
+                if (node.isMesh) {
+                    node.castShadow = true;
+                    node.receiveShadow = true;
+                }
+            });
+
+            laptopMesh.scale.set(3, 3, 3); 
+            laptopMesh.position.set(-3.2, -1.45, 1); 
+
+            scene.add(laptopMesh);
+        }, 
+        function(xhr) { 
+            console.log("Cargando laptop: " + Math.round(xhr.loaded / xhr.total * 100) + "%"); 
+        }, 
+        function(error) { 
+            console.error("Error al cargar la laptop:", error);
         }
+    );
+
+    // Lógica del botón de instrucciones
+    const btnComenzar = document.getElementById('btn-comenzar');
+    const modalInstrucciones = document.getElementById('modal-instrucciones');
+
+    if (btnComenzar && modalInstrucciones) {
+        btnComenzar.addEventListener('click', () => {
+            modalInstrucciones.style.display = 'none'; 
+        });
+    }
+
+    // Eventos de mouse
+    window.addEventListener('mousedown', (event) => {
+        if (event.button === 2) isRightMouseDown = true;
     });
 
     window.addEventListener('mouseup', (event) => {
-        if (event.button === 2) {
-            isRightMouseDown = false;
-        }
+        if (event.button === 2) isRightMouseDown = false;
     });
 
     window.addEventListener('contextmenu', (event) => {
@@ -161,11 +200,20 @@ function init() {
         perspectiveCamera.updateProjectionMatrix();
     });
 
-    // Teclado WASD
+    // Teclado WASD, Espacio (Laptop) y X (Puerta)
     window.addEventListener('keydown', (event) => {
         const key = event.key.toLowerCase();
         if (key in keysPressed) {
             keysPressed[key] = true;
+        }
+
+        if (event.code === 'Space' && cercaDeLaptop) {
+            window.location.href = 'pc.html'; 
+        }
+
+        if (key === 'x' && cercaDePuerta) {
+            console.log("Saliendo al dashboard...");
+            window.location.href = 'dashboard.html';
         }
     });
 
@@ -186,7 +234,7 @@ function onDocumentMouseMove(event) {
 }
 
 function animate() {
-    // 1. ROTACIÓN HORIZONTAL (Mantenemos la mirada nivelada a la altura de la cámara)
+    // 1. ROTACIÓN HORIZONTAL
     const target = new Vector3(
         perspectiveCamera.position.x + Math.sin(theta),
         perspectiveCamera.position.y, 
@@ -198,7 +246,6 @@ function animate() {
     // 2. DESPLAZAMIENTO WASD
     const forward = new Vector3();
     perspectiveCamera.getWorldDirection(forward);
-    
     forward.y = 0; 
     forward.normalize();
 
@@ -210,8 +257,32 @@ function animate() {
     if (keysPressed.a) perspectiveCamera.position.addScaledVector(right, -moveSpeed);
     if (keysPressed.d) perspectiveCamera.position.addScaledVector(right, moveSpeed);
 
-    // Forzamos rigurosamente que el jugador no se hunda ni flote al caminar
     perspectiveCamera.position.y = cameraHeight;
+
+    // 3. DETECTAR PROXIMIDAD A LA LAPTOP
+    const laptopTargetPos = new Vector3(-1.21, cameraHeight, 3.53);
+    const distanciaLaptop = perspectiveCamera.position.distanceTo(laptopTargetPos);
+    const promptLaptop = document.getElementById('prompt-laptop');
+
+    if (distanciaLaptop < 1.2) {
+        cercaDeLaptop = true;
+        if (promptLaptop) promptLaptop.style.display = 'block';
+    } else {
+        cercaDeLaptop = false;
+        if (promptLaptop) promptLaptop.style.display = 'none';
+    }
+
+    // 4. DETECTAR PROXIMIDAD A LA PUERTA (Radio amplio de 3.0 para asegurar visibilidad)
+    const distanciaPuerta = perspectiveCamera.position.distanceTo(puertaPos);
+    const promptPuerta = document.getElementById('prompt-puerta');
+    
+    if (distanciaPuerta < 3.0) {
+        cercaDePuerta = true;
+        if (promptPuerta) promptPuerta.style.display = 'block';
+    } else {
+        cercaDePuerta = false;
+        if (promptPuerta) promptPuerta.style.display = 'none';
+    }
 
     renderer.render(scene, perspectiveCamera); 
 }
@@ -222,44 +293,5 @@ function onWindowResize() {
     
     perspectiveCamera.aspect = width / height;
     perspectiveCamera.updateProjectionMatrix(); 
-    
     renderer.setSize(width, height); 
 }
-
-
-// --- CARGAR LAPTOP GLB ---
-    const rutaLaptop = '../model/sci_fi_laptop_alternative_90s.glb';
-    
-    loader.load(
-        rutaLaptop, 
-        function(gltf) {
-            console.log("¡LAPTOP CARGADA CORRECTAMENTE!");
-            const laptop = gltf.scene;
-            
-            // Configurar sombras y materiales para que coincidan con la oficina
-            laptop.traverse(function(node) {
-                if (node.isMesh) {
-                    node.castShadow = true;
-                    node.receiveShadow = true;
-                }
-            });
-
-            // --- AJUSTA ESTOS VALORES SEGÚN TU ESCENA ---
-            // 1. Escala: Si se ve gigante o microscópica, cambia estos números
-            laptop.scale.set(1, 1, 1); 
-            
-            // 2. Posición: Coordenadas X, Y, Z para ubicarla sobre un escritorio
-            laptop.position.set(0, 0, 0); 
-            
-            // 3. Rotación (Opcional): Si necesitas girarla
-            // laptop.rotation.y = Math.PI / 4; // Gira 45 grados
-
-            scene.add(laptop);
-        }, 
-        function(xhr) { 
-            console.log("Cargando laptop: " + Math.round(xhr.loaded / xhr.total * 100) + "%"); 
-        }, 
-        function(error) { 
-            console.error("Error al cargar la laptop:", error);
-        }
-    );

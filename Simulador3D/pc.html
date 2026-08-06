@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal de Diagnóstico Interactivo - 5 Retos</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: #050505;
+            color: #00ff66;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-size: 18px;
+        }
+
+        .crt-container {
+            width: 94%;
+            max-width: 980px;
+            height: 94vh;
+            background: #0a0f0a;
+            border: 5px solid #1a331a;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 255, 102, 0.25), inset 0 0 60px rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            padding: 25px;
+            position: relative;
+        }
+
+        .crt-container::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px dashed #00ff66;
+            padding-bottom: 15px;
+            margin-bottom: 18px;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .timer-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #111f11;
+            border: 2px solid #ff3333;
+            padding: 6px 16px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
+        }
+
+        .timer-label {
+            font-size: 11px;
+            color: #ff8080;
+            letter-spacing: 1px;
+        }
+
+        .timer {
+            color: #ff3333;
+            font-weight: bold;
+            font-size: 26px;
+            letter-spacing: 2px;
+        }
+
+        @keyframes pulse-warning {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .timer-warning {
+            animation: pulse-warning 0.8s infinite;
+        }
+
+        .info-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 255, 102, 0.05);
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 18px;
+            border-left: 4px solid #00ff66;
+            font-size: 16px;
+        }
+
+        .stars-container {
+            display: flex;
+            gap: 8px;
+            font-size: 24px;
+        }
+
+        .star {
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+        }
+
+        .star.lost {
+            color: #333333;
+            text-shadow: none;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 1;
+        }
+
+        .challenge-box {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .challenge-box h3 {
+            color: #00ffff;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .interactive-area {
+            background: #050a05;
+            border: 2px solid #1a331a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .slider-group label {
+            font-size: 16px;
+            color: #00ffff;
+        }
+
+        .slider-group input[type=range] {
+            width: 100%;
+            height: 10px;
+            accent-color: #00ff66;
+            cursor: pointer;
+        }
+
+        .node-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .node-card {
+            background: #112211;
+            border: 2px solid #00ff66;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .node-card:hover {
+            background: #00ff66;
+            color: #000;
+        }
+
+        .node-card.selected {
+            background: #00ffff;
+            color: #000;
+            border-color: #00ffff;
+            font-weight: bold;
+        }
+
+        .terminal-input-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .terminal-prompt {
+            color: #00ffff;
+            font-weight: bold;
+            align-self: center;
+            font-size: 16px;
+        }
+
+        .terminal-input {
+            flex: 1;
+            background: #000;
+            border: 2px solid #00ff66;
+            color: #00ff66;
+            padding: 12px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .action-submit-btn {
+            background: #00ff66;
+            color: #000;
+            border: none;
+            padding: 12px 22px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .action-submit-btn:hover {
+            background: #00ffff;
+        }
+
+        .port-connection-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .port-col {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .port-btn {
+            background: #112211;
+            border: 2px solid #00ff66;
+            color: #00ff66;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .port-btn.active {
+            background: #ffcc00;
+            color: #000;
+            border-color: #ffcc00;
+            font-weight: bold;
+        }
+
+        .port-btn.connected {
+            background: #00ffff;
+            color: #000;
+            border-color: #00ffff;
+            cursor: default;
+        }
+
+        .status-bar {
+            border-top: 2px solid #1a331a;
+            padding-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            color: #888;
+        }
+
+        #feedback {
+            font-weight: bold;
+        }
+
+        .screen-over {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #0a0f0a;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .screen-over h2 {
+            font-size: 34px;
+            margin-bottom: 20px;
+        }
+
+        .final-stars {
+            font-size: 48px;
+            letter-spacing: 12px;
+            margin-bottom: 20px;
+        }
+
+        .screen-over p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+
+        .action-btn {
+            background: #00ff66;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: #00ffff;
+            box-shadow: 0 0 20px #00ffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="crt-container">
+        <div class="header">
+            <h1>> SYS_DIAG_CHALLENGE_V5</h1>
+            <div class="timer-box" id="timer-box">
+                <span class="timer-label">TIEMPO RESTANTE</span>
+                <div class="timer" id="timer">01:30</div>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <span>CALIFICACIÓN:</span>
+            <div class="stars-container" id="stars-container">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+            </div>
+        </div>
+
+        <div class="content" id="game-content">
+            <div id="quiz-container">
+                <div class="challenge-box">
+                    <h3 id="challenge-title">Cargando módulo...</h3>
+                    <p id="challenge-desc">Preparando entorno de simulación...</p>
+                </div>
+                <div class="interactive-area" id="interactive-workspace"></div>
+            </div>
+
+            <div class="status-bar">
+                <span>RETO: <strong id="current-q">1</strong> / 5</span>
+                <span id="feedback">ESTADO: ESPERANDO ACCIÓN DEL OPERADOR</span>
+            </div>
+        </div>
+
+        <!-- Pantalla de Victoria -->
+        <div class="screen-over" id="win-screen" style="display: none;">
+            <h2 style="color: #00ff66;">[ DIAGNÓSTICO EXITOSO ]</h2>
+            <div class="final-stars" id="final-stars-display">★★★★★</div>
+            <p id="win-message">¡Sistema completamente restaurado!</p>
+            <a href="Prototipo.html" class="action-btn">VOLVER AL SIMULADOR 3D</a>
+        </div>
+
+        <!-- Pantalla de Derrota -->
+        <div class="screen-over" id="lose-screen" style="display: none;">
+            <h2 style="color: #ff3333;">[ SISTEMA BLOQUEADO ]</h2>
+            <p id="lose-message">Demasiados fallos críticos o tiempo agotado.</p>
+            <button class="action-btn" onclick="location.reload()" style="background: #ff3333; color: white;">REINTENTAR DIAGNÓSTICO</button>
+        </div>
+    </div>
+
+    <!-- Único script externo -->
+    <script src="../js/pc.js"></script>
+</body>
+</html>
