@@ -3,12 +3,37 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="/css/style.css">
         <title>Simulador3D</title>
     </head>
 <body>
 
+<!-- Mensaje flotante de interacción -->
+<div id="prompt-laptop" style="display: none; position: fixed; bottom: 20%; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 10px 20px; border-radius: 8px; font-family: sans-serif; font-size: 18px; z-index: 1000;">
+    Presiona <kbd style="background: #333; padding: 2px 6px; border-radius: 4px;">Espacio</kbd> para entrar a la PC
+</div>
+
+<!-- Cuadro de Instrucciones Inicial -->
+<div id="modal-instrucciones" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(15, 23, 42, 0.95); color: white; padding: 30px; border-radius: 12px; font-family: sans-serif; z-index: 2000; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-width: 450px; text-align: center; border: 1px solid rgba(255,255,255,0.1);">
+    <h2 style="margin-top: 0; color: #38bdf8; font-size: 24px;">¡Bienvenido al Simulador!</h2>
+    <p style="color: #cbd5e1; font-size: 15px; line-height: 1.5; margin-bottom: 20px;">
+        Tu objetivo es explorar la oficina, encontrar la <b>PC para realizar el diagnóstico</b> y utilizar la puerta cuando desees salir.
+    </p>
+    
+    <div style="background: rgba(30, 41, 59, 0.8); padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: left; font-size: 14px; color: #e2e8f0;">
+        <p style="margin: 5px 0;">⌨️ <b>Movimiento:</b> Teclas W, A, S, D</p>
+        <p style="margin: 5px 0;">🖱️ <b>Mirar alrededor:</b> Clic derecho sostenido + Mover mouse</p>
+        <p style="margin: 5px 0;">💻 <b>Entrar a la PC:</b> Tecla <kbd style="background: #475569; padding: 2px 5px; border-radius: 4px;">Espacio</kbd> (frente a la laptop)</p>
+        <p style="margin: 5px 0;">🚪 <b>Salir al Dashboard:</b> Tecla <kbd style="background: #475569; padding: 2px 5px; border-radius: 4px;">X</kbd> (frente a la puerta)</p>
+    </div>
+
+    <button id="btn-comenzar" style="background: #0284c7; color: white; border: none; padding: 10px 20px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background 0.2s;">
+        Comenzar Aventura
+    </button>
+</div>
+
 <script type="module" src="../js/Simulador3D.js"></script>
+
 
 </body>
 </html>
