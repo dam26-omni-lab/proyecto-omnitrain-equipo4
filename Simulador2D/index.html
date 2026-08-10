@@ -480,7 +480,6 @@
                     <div class="module-card card-level-1 h-100 d-flex flex-column justify-content-between p-4">
                         <div>
                             <div class="module-top d-flex justify-content-between align-items-center mb-3">
-                                <!-- ICONO SVG DIRECTO: GESTIÓN (Edificio/Engranaje) -->
                                 <div class="module-icon-box icon-box-lvl1">
                                     <svg viewBox="0 0 16 16">
                                         <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm9.25 1a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5z"/>
@@ -515,7 +514,6 @@
                     <div class="module-card card-level-2 h-100 d-flex flex-column justify-content-between p-4">
                         <div>
                             <div class="module-top d-flex justify-content-between align-items-center mb-3">
-                                <!-- ICONO SVG DIRECTO: ESCUDO / ALERTAS -->
                                 <div class="module-icon-box icon-box-lvl2">
                                     <svg viewBox="0 0 16 16">
                                         <path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM8.005 5.5a.5.5 0 0 1 .5.5v2.5a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm0 5a.625.625 0 1 1 0-1.25.625.625 0 0 1 0 1.25z"/>
@@ -550,7 +548,6 @@
                     <div class="module-card card-level-3 h-100 d-flex flex-column justify-content-between p-4">
                         <div>
                             <div class="module-top d-flex justify-content-between align-items-center mb-3">
-                                <!-- ICONO SVG DIRECTO: GRÁFICA / ESTRATEGIA (Igual al de tu imagen previa) -->
                                 <div class="module-icon-box icon-box-lvl3">
                                     <svg viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M7.05 3.691c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 0 0 .95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 0 0-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 0 0-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 0 0-.364-1.118L.98 9.483c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 0 0 .951-.69l1.07-3.292z"/>
@@ -656,6 +653,20 @@
 
         function iniciarNivel(numNivel) {
             console.log("Iniciando Nivel: " + numNivel);
+            
+            switch (numNivel) {
+                case 1:
+                    window.location.href = 'nivel1.html';
+                    break;
+                case 2:
+                    window.location.href = 'nivel2.html';
+                    break;
+                case 3:
+                    window.location.href = 'nivel3.html';
+                    break;
+                default:
+                    console.error("Nivel no válido");
+            }
         }
     </script>
 
