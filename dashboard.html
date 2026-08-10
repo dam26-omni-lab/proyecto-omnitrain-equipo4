@@ -13,6 +13,133 @@
     <link rel="stylesheet" href="css/bootstrap-icons.css">
 
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Estilos personalizados para las tarjetas del Dashboard con el brillo exacto */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .sim-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .sim-card-2d {
+            background: linear-gradient(180deg, rgba(14, 116, 144, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
+        }
+
+        .sim-card-2d:hover {
+            transform: translateY(-8px);
+            border-color: #38bdf8;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.35);
+        }
+
+        .sim-card-3d {
+            background: linear-gradient(180deg, rgba(147, 51, 234, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.15);
+        }
+
+        .sim-card-3d:hover {
+            transform: translateY(-8px);
+            border-color: #a855f7;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(168, 85, 247, 0.35);
+        }
+
+        .sim-icon-box {
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .icon-box-2d {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+            color: #38bdf8;
+        }
+
+        .icon-box-3d {
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.35);
+            color: #a855f7;
+        }
+
+        .btn-sim-2d {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            border: none;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+            color: #fff;
+            font-weight: bold;
+            border-radius: 12px;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-sim-2d:hover {
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.6);
+            color: #fff;
+        }
+
+        .btn-sim-3d {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            border: none;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+            color: #fff;
+            font-weight: bold;
+            border-radius: 12px;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-sim-3d:hover {
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6);
+            color: #fff;
+        }
+
+        /* Botón de Estilo Azul (Mismo formato que 2D pero con tonos azules) para el Hero */
+        .btn-hero-blue {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            border: none;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+            color: #fff;
+            font-weight: 600;
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-hero-blue:hover {
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.6);
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 
@@ -58,43 +185,15 @@
 
             <li>
                 <a href="#">
-                    <i class="bi bi-shield-lock-fill"></i>
-                    Cybersecurity
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
                     <i class="bi bi-bar-chart-fill"></i>
                     KPIs
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <i class="bi bi-patch-question-fill"></i>
-                    Evaluaciones
-                </a>
-            </li>
-            
-            <li>
-                <a href="#">
-                    <i class="bi bi-award-fill"></i>
-                    Certificaciones
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <i class="bi bi-gear-fill"></i>
-                    Configuración
                 </a>
             </li>
         </ul>
 
         <button id="logoutBtn" class="btn btn-danger">
-    <i class="bi bi-box-arrow-right"></i> Cerrar sesión
-</button>
+            <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+        </button>
 
     </aside>
 
@@ -119,10 +218,57 @@
             <h1>Bienvenido a NEXUS</h1>
             <p>Monitorea tu progreso, accede a los simuladores de entrenamiento en 2D y 3D, y pon a prueba tus habilidades contra amenazas de ciberseguridad.</p>
             
-
             <div class="hero-buttons">
                 <a href="Simulador2D/index.html" class="btn btn-primary btn-lg">Iniciar Simulador 2D</a>
-                <a href="Simulador3D/index.html" class="btn btn-outline-primary btn-lg">Explorar VR (3D)</a>
+                <a href="Simulador3D/index.html" class="btn-hero-blue btn-lg">Explorar VR (3D)</a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE ACCESO RÁPIDO A LOS SIMULADORES -->
+        <section class="mb-4">
+            <h3 class="fw-bold text-light mb-3">Módulos de Entrenamiento</h3>
+            <div class="dashboard-grid">
+                
+                <!-- Tarjeta Simulador 2D -->
+                <div class="sim-card sim-card-2d">
+                    <div>
+                        <div class="sim-icon-box icon-box-2d">
+                            <i class="bi bi-display-fill"></i>
+                        </div>
+                        <h4 class="fw-bold text-light mb-2">Simulador 2D</h4>
+                        <p class="text-secondary small mb-4">Gestiona recursos corporativos, responde a incidentes operativos y supera los 3 niveles de dificultad estratégica.</p>
+                    </div>
+                    <div class="d-flex flex-column gap-2">
+                        <div class="d-flex justify-content-between small text-muted mb-1">
+                            <span>Niveles: Gestión, Crisis, Estrategia</span>
+                            <span class="text-info fw-bold">3 Fases</span>
+                        </div>
+                        <a href="Simulador2D/index.html" class="btn btn-sim-2d text-center text-decoration-none">
+                            <i class="bi bi-play-fill me-1"></i> Entrar al Simulador 2D
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Simulador 3D (VR) -->
+                <div class="sim-card sim-card-3d">
+                    <div>
+                        <div class="sim-icon-box icon-box-3d">
+                            <i class="bi bi-badge-vr-fill"></i>
+                        </div>
+                        <h4 class="fw-bold text-light mb-2">Simulador 3D (VR)</h4>
+                        <p class="text-secondary small mb-4">Explora el centro de datos inmersivo en primera persona, conecta redes tridimensionales y soluciona sobrecargas críticas.</p>
+                    </div>
+                    <div class="d-flex flex-column gap-2">
+                        <div class="d-flex justify-content-between small text-muted mb-1">
+                            <span>Niveles: HW, Redes, Crisis VR</span>
+                            <span class="fw-bold" style="color: #c084fc;">3 Fases</span>
+                        </div>
+                        <a href="Simulador3D/index.html" class="btn btn-sim-3d text-center text-decoration-none">
+                            <i class="bi bi-headset-vr me-1"></i> Entrar al Simulador 3D
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -131,9 +277,8 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/desconocidoindex.js"></script>
 
-
-<script type="module" src="js/logout.js"></script>
-<script src="js/phaser.min.js"></script>
-<script src="js/efecto.js"></script>
+    <script type="module" src="js/logout.js"></script>
+    <script src="js/phaser.min.js"></script>
+    <script src="js/efecto.js"></script>
 </body>
 </html>
