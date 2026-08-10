@@ -202,6 +202,15 @@ function exitoFase(mensaje) {
 function falloFase(mensaje) {
     estrellasRestantes--;
     actualizarEstrellasVisuales();
+
+    // Reproducir sonido de error automáticamente al fallar
+    const audioError = document.getElementById('audio-error');
+    if (audioError) {
+        audioError.currentTime = 0;
+        audioError.volume = 0.5;
+        audioError.play().catch(e => console.log("Audio de error listo"));
+    }
+
     feedbackEl.textContent = "ESTADO: " + mensaje;
     feedbackEl.style.color = "#ff3333";
     if (estrellasRestantes <= 0) {
@@ -230,4 +239,28 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciarJuego);
 } else {
     iniciarJuego();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const musicaPc = document.getElementById('musica-pc');
+    if (musicaPc) {
+        musicaPc.volume = 0.25; // Volumen al 25%
+        musicaPc.play().catch(e => console.log("Audio de PC listo tras interacción"));
+    }
+});
+
+function exitoFase(mensaje) {
+    // --- REPRODUCIR SONIDO DE ÉXITO ---
+    const audioExito = document.getElementById('audio-exito');
+    if (audioExito) {
+        audioExito.currentTime = 0; // Reinicia el audio por si hubo un acierto previo
+        audioExito.volume = 0.5;   // Volumen al 50%
+        audioExito.play().catch(e => console.log("Audio de éxito listo"));
+    }
+    // ----------------------------------
+
+    feedbackEl.textContent = "ESTADO: " + mensaje;
+    feedbackEl.style.color = "#00ff66";
+    faseActual++;
+    setTimeout(() => cargarFase(), 1200);
 }
