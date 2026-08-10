@@ -216,12 +216,6 @@
             </li>
             <li>
                 <a href="#">
-                    <i class="bi bi-shield-lock-fill"></i>
-                    Cybersecurity
-                </a>
-            </li>
-            <li>
-                <a href="#">
                     <i class="bi bi-bar-chart-fill"></i>
                     KPIs
                 </a>
@@ -260,13 +254,13 @@
                     </p>
 
                     <div class="hero-buttons d-flex flex-wrap gap-3">
-                        <a href="Prototipo.html" class="btn btn-primary btn-lg px-4" style="background: linear-gradient(135deg, #7c3aed, #06b6d4); border:none;">
-                            <i class="bi bi-play-fill me-1"></i> Abrir Simulador 3D
-                        </a>
-                        <button class="btn btn-outline-primary btn-lg px-4">
-                            <i class="bi bi-gear-fill me-1"></i> Configurar Gráficos
-                        </button>
-                    </div>
+                    <a href="Prototipo.html" class="btn btn-primary btn-lg px-4" style="background: linear-gradient(135deg, #7c3aed, #06b6d4); border:none;">
+                        <i class="bi bi-play-fill me-1"></i> Abrir Simulador 3D
+                    </a>
+                    <a href="../dashboard.html" class="btn btn-outline-primary btn-lg px-4 text-decoration-none">
+                        <i class="bi bi-gear-fill me-1"></i> Volver al dashboard
+                    </a>
+                </div>
                 </div>
 
                 <!-- PANELES LATERALES -->
@@ -321,30 +315,15 @@
                 <p class="text-secondary small m-0">Haz clic en "Abrir Simulador 3D" para renderizar la escena completa</p>
             </div>
         </section>
+        
 
     </main>
 
     <!-- SCRIPTS -->
     <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/index3D.js"></script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const menuToggle = document.getElementById("menuToggle");
-            const sidebarMenu = document.getElementById("sidebarMenu");
 
-            if (menuToggle && sidebarMenu) {
-                menuToggle.addEventListener("click", function () {
-                    sidebarMenu.classList.toggle("active");
-                    const icon = menuToggle.querySelector("i");
-                    if (sidebarMenu.classList.contains("active")) {
-                        icon.classList.replace("bi-list", "bi-x-lg");
-                    } else {
-                        icon.classList.replace("bi-x-lg", "bi-list");
-                    }
-                });
-            }
-        });
-    </script>
 
 </body>
 </html>
