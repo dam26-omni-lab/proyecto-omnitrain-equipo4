@@ -168,13 +168,22 @@ function init() {
         }
     );
 
-    // Lógica del botón de instrucciones
+    // Lógica del botón de instrucciones y reproducción de música inmediata
     const btnComenzar = document.getElementById('btn-comenzar');
     const modalInstrucciones = document.getElementById('modal-instrucciones');
+    const musicaFondo = document.getElementById('musica-fondo');
 
     if (btnComenzar && modalInstrucciones) {
         btnComenzar.addEventListener('click', () => {
             modalInstrucciones.style.display = 'none'; 
+            
+            // Iniciar música de fondo al hacer clic en comenzar
+            if (musicaFondo) {
+                musicaFondo.volume = 0.3; // Volumen al 30%
+                musicaFondo.play().catch(error => {
+                    console.log("Audio iniciado correctamente");
+                });
+            }
         });
     }
 
