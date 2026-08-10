@@ -23,28 +23,19 @@
             
             width: 100vw;
             height: 100vh;
-
             display: flex;
             justify-content: center;
             align-items: center;
-
             overflow: hidden;
             position: relative;
-
-            /* Animación del fondo 2D */
             animation: moverFondo 30s linear infinite;
         }
 
         @keyframes moverFondo {
-            0% {
-                background-position: 0 bottom;
-            }
-            100% {
-                background-position: -100vw bottom;
-            }
+            0% { background-position: 0 bottom; }
+            100% { background-position: -100vw bottom; }
         }
 
-        /* Oscurece ligeramente el fondo para resaltar los menús */
         body::before {
             content: "";
             position: absolute;
@@ -54,20 +45,17 @@
             z-index: 0;
         }
 
-        /* --- ANIMACIÓN DEL PERSONAJE (SPRITESHEET) --- */
+        /* --- ANIMACIÓN DEL PERSONAJE --- */
         .personaje {
             position: absolute;
             bottom: 15%; 
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
-            
             width: 150px;  
             height: 200px; 
-            
             background-image: url("../img/personaje_sprite.png"); 
             background-repeat: no-repeat;
-            
             animation: correr 0.8s steps(6) infinite;
         }
 
@@ -85,9 +73,7 @@
             align-items: center;
         }
 
-        .oculto {
-            display: none !important;
-        }
+        .oculto { display: none !important; }
 
         h2.titulo-menu {
             color: white;
@@ -115,43 +101,38 @@
             transform: scale(1.05);
             background: #00bfff;
             color: black;
-            box-shadow: 
-                0 0 15px #00bfff,
-                0 0 30px #00bfff;
+            box-shadow: 0 0 15px #00bfff, 0 0 30px #00bfff;
         }
 
-        button:active {
-            transform: scale(.97);
-        }
+        button:active { transform: scale(.97); }
     </style>
 </head>
 
 <body>
 
-    <!-- PERSONAJE EN MOVIMIENTO -->
+    <!-- PERSONAJE -->
     <div class="personaje"></div>
 
-    <!-- MENÚ PRINCIPAL 2D -->
+    <!-- MENÚ PRINCIPAL -->
     <div class="menu-container" id="menu-principal">
         <h2 class="titulo-menu">SIMULADOR 2D</h2>
         <button id="inicio" onclick="mostrarNiveles()">🚆 Iniciar</button>
-        <!-- Conectado para redirigir a la página de créditos -->
         <button id="creditos" onclick="window.location.href='Creditos.html'">👥 Créditos</button>
         <button id="salir" onclick="window.location.href='index.html'">❌ Salir</button>
     </div>
 
-    <!-- MENÚ DE NIVELES 2D (Oculto inicialmente) -->
+    <!-- MENÚ DE NIVELES -->
     <div class="menu-container oculto" id="menu-niveles">
         <h2 class="titulo-menu">Selecciona un Nivel</h2>
-        
         <button onclick="window.location.href='Nivel1.html'">Nivel 1: Gestión</button>
         <button onclick="window.location.href='Nivel2.html'">Nivel 2: Incidentes</button>
         <button onclick="window.location.href='Nivel3.html'">Nivel 3: Estrategia</button>
-        
         <button onclick="mostrarPrincipal()" style="border-color: #ff4444; margin-top: 20px;">⬅ Volver</button>
     </div>
 
-    <!-- LÓGICA DE INTERACCIÓN INTERNA -->
+    <!-- AUDIO -->
+    <audio id="audio-intro" src="../audio/intro.mp3" loop preload="auto"></audio>
+
     <script>
         function mostrarNiveles() {
             document.getElementById('menu-principal').classList.add('oculto');
@@ -162,8 +143,26 @@
             document.getElementById('menu-niveles').classList.add('oculto');
             document.getElementById('menu-principal').classList.remove('oculto');
         }
+
+        // Lógica de reproducción automática
+        window.onload = () => {
+            const audioIntro = document.getElementById('audio-intro');
+            
+            // Intenta reproducir apenas carga la página
+            const playPromise = audioIntro.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Autoplay permitido
+                }).catch(error => {
+                    // Autoplay bloqueado: El usuario debe hacer clic en cualquier lugar para iniciar
+                    window.addEventListener('click', () => {
+                        audioIntro.play();
+                    }, { once: true });
+                });
+            }
+        };
     </script>
 
 </body>
-
 </html>

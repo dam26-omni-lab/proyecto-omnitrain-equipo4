@@ -129,7 +129,7 @@
             background-position: center;
         }
 
-        /* BURBUJA DE DIÁLOGO POSICIONADA SOBRE EL PERSONAJE PARA NO TAPE EL PANEL DERECHO */
+        /* BURBUJA DE DIÁLOGO POSICIONADA SOBRE EL PERSONAJE */
         .dialog-bubble {
             position: absolute;
             top: -55px;
@@ -159,7 +159,7 @@
             border-color: #00ff88 transparent transparent transparent;
         }
 
-        /* SECCIÓN DE COMPONENTES DISPONIBLES (SIN SCROLL, TODO VISIBLE) */
+        /* SECCIÓN DE COMPONENTES DISPONIBLES */
         .components-section {
             width: 100%;
             flex-grow: 1;
@@ -263,7 +263,30 @@
             font-size: 13px;
         }
 
-        /* --- MODALES (VICTORIA Y DERROTA) --- */
+        /* --- BOTÓN FLOTANTE DE AUDIO --- */
+        .audio-control {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 2px solid #00ff88;
+            border-radius: 10px;
+            padding: 6px 12px;
+            color: #00ff88;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 50;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .audio-control:hover {
+            background: #00ff88;
+            color: black;
+        }
+
+        /* --- MODALES --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -301,7 +324,6 @@
             transform: scale(1);
         }
 
-        /* ESTILOS ESPECÍFICOS PARA MODAL DE DERROTA */
         .defeat-card {
             border-color: #ef4444;
             box-shadow: 0 0 35px rgba(239, 68, 68, 0.3);
@@ -420,6 +442,14 @@
 
 <body>
 
+    <!-- CONTROL DE AUDIO FLOTANTE -->
+    <button id="audio-btn" class="audio-control" onclick="toggleAudio()">🔊 Música: ON</button>
+
+    <!-- ELEMENTOS DE AUDIO (Ruta corregida saliendo de Simulador2D hacia la raíz) -->
+    <audio id="bg-music" src="../audio/level1.mp3" loop></audio>
+    <audio id="sound-correct" src="../audio/correcto.mp3"></audio>
+    <audio id="sound-error" src="../audio/error.mp3"></audio>
+
     <!-- HUD DE ESTRELLAS SUPERIOR DERECHA -->
     <div class="stars-hud">
         <span class="label">Calificación:</span>
@@ -479,7 +509,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE DERROTA / JUEGO TERMINADO -->
+    <!-- MODAL DE DERROTA -->
     <div id="defeat-modal" class="modal-overlay">
         <div class="victory-card defeat-card">
             <div class="defeat-title">¡Sin Estrellas / Sistema Bloqueado!</div>
@@ -511,6 +541,7 @@
         let colocados = 0;
         let estrellasRestantes = 6; 
         let juegoTerminado = false;
+        let audioHabilitado = false;
 
         const bank = document.getElementById("components-bank");
         const slotsContainer = document.getElementById("slots-container");
@@ -520,6 +551,38 @@
         const modalErrors = document.getElementById("modal-errors");
         const starsDisplay = document.getElementById("stars-display");
         const modalStars = document.getElementById("modal-stars");
+
+        // Elementos de Audio
+        const bgMusic = document.getElementById("bg-music");
+        const soundCorrect = document.getElementById("sound-correct");
+        const soundError = document.getElementById("sound-error");
+        const audioBtn = document.getElementById("audio-btn");
+
+        bgMusic.volume = 0.3; // Volumen moderado para la música de fondo
+
+        function intentarReproducirMusica() {
+            if (!audioHabilitado) {
+                bgMusic.play().then(() => {
+                    audioHabilitado = true;
+                    audioBtn.textContent = "🔊 Música: ON";
+                }).catch(() => {
+                    // El navegador bloqueó el autoplay hasta que haya interacción
+                });
+            }
+        }
+
+        function toggleAudio() {
+            if (audioHabilitado) {
+                bgMusic.pause();
+                audioHabilitado = false;
+                audioBtn.textContent = "🔇 Música: OFF";
+            } else {
+                bgMusic.play().then(() => {
+                    audioHabilitado = true;
+                    audioBtn.textContent = "🔊 Música: ON";
+                }).catch(e => console.log("Reproducción bloqueada"));
+            }
+        }
 
         function actualizarEstrellasHUD() {
             let htmlStars = "";
@@ -546,6 +609,9 @@
             victoryModal.classList.remove("active");
             defeatModal.classList.remove("active");
 
+            // Intentar iniciar la música de fondo automáticamente al cargar
+            intentarReproducirMusica();
+
             const componentesMezclados = [...componentes].sort(() => Math.random() - 0.5);
             const slotsMezclados = [...componentes].sort(() => Math.random() - 0.5);
 
@@ -557,6 +623,9 @@
                 item.id = `drag-${comp.id}`;
 
                 item.addEventListener("dragstart", (e) => {
+                    // Al primer arrastre garantizamos que la música despegue si el navegador la tenía pausada
+                    intentarReproducirMusica();
+
                     if (juegoTerminado) {
                         e.preventDefault();
                         return;
@@ -598,6 +667,10 @@
                         elementoArrastrado.remove();
                         colocados++;
 
+                        // Reproducir sonido de correcto
+                        soundCorrect.currentTime = 0;
+                        soundCorrect.play().catch(e => {});
+
                         statusMsg.textContent = "💬 ¡Correcto! Componente ensamblado con éxito.";
                         statusMsg.style.borderColor = "#00ff88";
                         statusMsg.style.color = "#a7f3d0";
@@ -608,6 +681,10 @@
                     } else {
                         errores++;
                         
+                        // Reproducir sonido de error
+                        soundError.currentTime = 0;
+                        soundError.play().catch(e => {});
+
                         if (estrellasRestantes > 0) {
                             estrellasRestantes -= 1;
                             actualizarEstrellasHUD();

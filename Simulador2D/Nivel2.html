@@ -178,7 +178,6 @@
             transition: transform 0.3s ease, color 0.3s ease;
         }
 
-        /* ANIMACIÓN DE PULSO PARA EL ENCABEZADO */
         .board-header.pulse-anim {
             animation: pulseHeader 0.4s ease;
         }
@@ -189,7 +188,6 @@
             100% { transform: scale(1); color: #00bfff; text-shadow: 0 0 0px rgba(0,191,255,0); }
         }
 
-        /* EFECTO DE DIFUMINADO (FADE) AJUSTADO A 1.5 SEGUNDOS */
         .fade-content {
             animation: fadeInOut 1.5s ease;
         }
@@ -200,7 +198,6 @@
             100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        /* CAJA DE TEXTO AMPLIADA CON SCROLL */
         .ticket-box {
             background: rgba(30, 41, 59, 0.6);
             border: 1px solid #475569;
@@ -221,7 +218,6 @@
             font-size: 19px;
         }
 
-        /* CONTENEDOR DE OPCIONES */
         .solutions-grid {
             display: flex;
             flex-direction: column;
@@ -233,7 +229,6 @@
             padding-right: 2px;
         }
 
-        /* BOTONES DE RESPUESTA AMPLIADOS */
         .solution-btn {
             width: 100%;
             padding: 14px 16px;
@@ -477,7 +472,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE DERROTA CON MENSAJE MOTIVACIONAL DE REDES -->
+    <!-- MODAL DE DERROTA -->
     <div id="defeat-modal" class="modal-overlay">
         <div class="victory-card defeat-card">
             <div class="defeat-title">¡Red Saturada / Incidencias sin Resolver!</div>
@@ -494,6 +489,11 @@
             </div>
         </div>
     </div>
+
+    <!-- AUDIOS -->
+    <audio id="audio-level" src="../audio/level2.mp3" loop></audio>
+    <audio id="audio-correct" src="../audio/correcto.mp3"></audio>
+    <audio id="audio-error" src="../audio/error.mp3"></audio>
 
     <script>
         const incidentes = [
@@ -543,6 +543,11 @@
         const modalErrors = document.getElementById("modal-errors");
         const questionFadeWrapper = document.getElementById("question-fade-wrapper");
 
+        // Elementos de Audio
+        const audioLevel = document.getElementById("audio-level");
+        const audioCorrect = document.getElementById("audio-correct");
+        const audioError = document.getElementById("audio-error");
+
         function actualizarEstrellasHUD() {
             let htmlStars = "";
             let estrellasOscuras = 6 - estrellasRestantes;
@@ -560,12 +565,10 @@
         function cargarIncidente() {
             if (juegoTerminado) return;
 
-            // Animación de pulso en el contador
             incidentCounter.classList.remove("pulse-anim");
             void incidentCounter.offsetWidth; 
             incidentCounter.classList.add("pulse-anim");
 
-            // Aplicar efecto de difuminado (fade) con retardo de 1.5s
             questionFadeWrapper.classList.remove("fade-content");
             void questionFadeWrapper.offsetWidth;
             questionFadeWrapper.classList.add("fade-content");
@@ -588,6 +591,9 @@
                     if (juegoTerminado) return;
 
                     if (opcion.correcta) {
+                        audioCorrect.currentTime = 0;
+                        audioCorrect.play();
+
                         statusMsg.textContent = "💬 ¡Excelente diagnóstico! Incidente resuelto.";
                         statusMsg.style.borderColor = "#00ff88";
                         statusMsg.style.color = "#00ff88";
@@ -600,12 +606,15 @@
                                 statusMsg.style.borderColor = "#00bfff";
                                 statusMsg.style.color = "#bae6fd";
                                 cargarIncidente();
-                            }, 1500); // Retardo de 1.5 segundos antes de cargar el siguiente
+                            }, 1500);
                         } else {
                             juegoTerminado = true;
                             setTimeout(mostrarVictoria, 800);
                         }
                     } else {
+                        audioError.currentTime = 0;
+                        audioError.play();
+
                         errores++;
                         if (estrellasRestantes > 0) {
                             estrellasRestantes -= 1;
@@ -634,10 +643,12 @@
             victoryModal.classList.add("active");
             modalErrors.textContent = `Errores de diagnóstico: ${errores}`;
             modalStars.textContent = starsDisplay.textContent;
+            audioLevel.pause();
         }
 
         function mostrarDerrota() {
             defeatModal.classList.add("active");
+            audioLevel.pause();
         }
 
         function reiniciarNivel() {
@@ -651,8 +662,17 @@
             statusMsg.textContent = "💬 ¡Listo para revisar los reportes de la red!";
             statusMsg.style.borderColor = "#00bfff";
             statusMsg.style.color = "#bae6fd";
+            audioLevel.currentTime = 0;
+            audioLevel.play();
             cargarIncidente();
         }
+
+        // Iniciar audio al primer clic para sortear restricciones de autoplay de los navegadores
+        window.addEventListener('click', () => {
+            if (audioLevel.paused) {
+                audioLevel.play().catch(e => console.log("Autoplay bloqueado"));
+            }
+        }, { once: true });
 
         window.onload = () => {
             actualizarEstrellasHUD();
