@@ -29,6 +29,29 @@
             position: relative;
         }
 
+        /* --- BOTÓN FLOTANTE DE AUDIO --- */
+        .audio-control {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 2px solid #a855f7;
+            border-radius: 10px;
+            padding: 6px 12px;
+            color: #a855f7;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 50;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .audio-control:hover {
+            background: #a855f7;
+            color: black;
+        }
+
         /* --- BARRA DE ESTRELLAS SUPERIOR DERECHA --- */
         .stars-hud {
             position: absolute;
@@ -411,6 +434,14 @@
 
 <body>
 
+    <!-- CONTROL DE AUDIO FLOTANTE -->
+    <button id="audio-btn" class="audio-control" onclick="toggleAudio()">🔊 Música: ON</button>
+
+    <!-- ELEMENTOS DE AUDIO (Ruta corregida saliendo de Simulador2D hacia la raíz) -->
+    <audio id="bg-music" src="../audio/level3.mp3" loop></audio>
+    <audio id="sound-correct" src="../audio/correcto.mp3"></audio>
+    <audio id="sound-error" src="../audio/error.mp3"></audio>
+
     <!-- HUD DE ESTRELLAS SUPERIOR DERECHA -->
     <div class="stars-hud">
         <span class="label">Calificación:</span>
@@ -550,6 +581,7 @@
         let errores = 0;
         let estrellasRestantes = 6;
         let juegoTerminado = false;
+        let audioHabilitado = false;
 
         const incidentCounter = document.getElementById("incident-counter");
         const ticketTitle = document.getElementById("ticket-title");
@@ -562,6 +594,38 @@
         const defeatModal = document.getElementById("defeat-modal");
         const modalStars = document.getElementById("modal-stars");
         const modalErrors = document.getElementById("modal-errors");
+
+        // Elementos de Audio
+        const bgMusic = document.getElementById("bg-music");
+        const soundCorrect = document.getElementById("sound-correct");
+        const soundError = document.getElementById("sound-error");
+        const audioBtn = document.getElementById("audio-btn");
+
+        bgMusic.volume = 0.3;
+
+        function intentarReproducirMusica() {
+            if (!audioHabilitado) {
+                bgMusic.play().then(() => {
+                    audioHabilitado = true;
+                    audioBtn.textContent = "🔊 Música: ON";
+                }).catch(() => {
+                    // Bloqueado por políticas del navegador hasta que el usuario interactúe
+                });
+            }
+        }
+
+        function toggleAudio() {
+            if (audioHabilitado) {
+                bgMusic.pause();
+                audioHabilitado = false;
+                audioBtn.textContent = "🔇 Música: OFF";
+            } else {
+                bgMusic.play().then(() => {
+                    audioHabilitado = true;
+                    audioBtn.textContent = "🔊 Música: ON";
+                }).catch(e => console.log("Reproducción bloqueada"));
+            }
+        }
 
         function actualizarEstrellasHUD() {
             let htmlStars = "";
@@ -580,6 +644,9 @@
         function cargarCaso() {
             if (juegoTerminado) return;
 
+            // Intentar activar música en cada interacción
+            intentarReproducirMusica();
+
             const caso = estrategias[indiceActual];
             incidentCounter.textContent = `CASO ESTRATÉGICO ${indiceActual + 1} DE ${estrategias.length}`;
             ticketTitle.textContent = caso.titulo;
@@ -596,8 +663,12 @@
 
                 btn.onclick = () => {
                     if (juegoTerminado) return;
+                    intentarReproducirMusica();
 
                     if (opcion.correcta) {
+                        soundCorrect.currentTime = 0;
+                        soundCorrect.play().catch(e => {});
+
                         statusMsg.textContent = "💬 ¡Excelente decisión gerencial! Estrategia aprobada.";
                         statusMsg.style.borderColor = "#00ff88";
                         statusMsg.style.color = "#00ff88";
@@ -607,17 +678,15 @@
                             setTimeout(() => {
                                 if (juegoTerminado) return;
                                 
-                                // Inicia animación de salida (1.5 segundos configurados en CSS)
                                 questionWrapper.classList.add("fade-out");
 
                                 setTimeout(() => {
                                     cargarCaso();
-                                    // Remueve la clase para hacer la animación de entrada suave
                                     questionWrapper.classList.remove("fade-out");
                                     statusMsg.textContent = "💬 ¡Analiza el siguiente caso corporativo!";
                                     statusMsg.style.borderColor = "#a855f7";
                                     statusMsg.style.color = "#d8b4fe";
-                                }, 750); // Mitad de la transición para cambiar el contenido con suavidad
+                                }, 750);
 
                             }, 1000);
                         } else {
@@ -626,6 +695,9 @@
                         }
                     } else {
                         errores++;
+                        soundError.currentTime = 0;
+                        soundError.play().catch(e => {});
+
                         if (estrellasRestantes > 0) {
                             estrellasRestantes -= 1;
                             actualizarEstrellasHUD();
